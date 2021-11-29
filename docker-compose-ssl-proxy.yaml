@@ -6,7 +6,7 @@ services:
     image: traefik:v2.5
     env_file: .env.prod
     command:
-      - "--api.insecure=true"
+      - "--api.insecure=false"
       - "--providers.docker=true"
 #      - "--providers.docker.exposedbydefault=false"
 #      - "--traefik.enable=true"
@@ -19,9 +19,9 @@ services:
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${useremail}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-#      - "--traefik.http.routers.api.rule=Host(`dashboard.${HOSTNAME}`)"
-#      - "--traefik.http.routers.api.entrypoints=https"
-#      - "--traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.rule=Host(`dashboard.${HOSTNAME}`)"
+      - "traefik.http.routers.api.entrypoints=https"
+      - "traefik.http.routers.api.service=api@internal"
     ports:
       - "80:80"
       - "443:443"
