@@ -18,13 +18,12 @@ services:
       - "--certificatesresolvers.myresolver.acme.email=${useremail}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`dashboard.${HOSTNAME}`)"
-      - "traefik.http.routers.dashboard.service=api@internal"
-      - "traefik.http.routers.dashboard.entrypoints=https"
+      - "traefik.http.routers.api.rule=Host(`dashboard.${HOSTNAME}`)"
+      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.http.routers.api.entrypoints=https"
     ports:
       - "80:80"
       - "443:443"
-      - "8080:8080"
       - "8085:8085"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
