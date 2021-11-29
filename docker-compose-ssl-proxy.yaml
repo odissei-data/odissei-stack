@@ -6,10 +6,8 @@ services:
     image: traefik:v2.5
     env_file: .env.prod
     command:
-      - "--api.insecure=false"
       - "--providers.docker=true"
-#      - "--providers.docker.exposedbydefault=false"
-#      - "--traefik.enable=true"
+      - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.http.address=:80"
       - "--entrypoints.https.address=:443"
       - "--entrypoints.contact-web.address=:8085"
@@ -19,9 +17,10 @@ services:
       - "--certificatesresolvers.myresolver.acme.tlschallenge=true"
       - "--certificatesresolvers.myresolver.acme.email=${useremail}"
       - "--certificatesresolvers.myresolver.acme.storage=/letsencrypt/acme.json"
-      - "traefik.http.routers.api.rule=Host(`dashboard.${HOSTNAME}`)"
-      - "traefik.http.routers.api.entrypoints=https"
-      - "traefik.http.routers.api.service=api@internal"
+      - "traefik.enable=true"
+      - "traefik.http.routers.dashboard.rule=Host(`dashboard.${HOSTNAME}`)"
+      - "traefik.http.routers.dashboard.service=api@internal"
+      - "traefik.http.routers.dashboard.entrypoints=https"
     ports:
       - "80:80"
       - "443:443"
