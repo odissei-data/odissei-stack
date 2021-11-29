@@ -11,7 +11,6 @@ services:
       - "POSTGRES_USER=dataverse"
       - "POSTGRES_PASSWORD=changeme"
       - "POSTGRES_PORT=5432"
-    env_file: docker-compose-no-ssl.env
     volumes:
       - ./data/postgresql_data:/var/lib/postgresql/data
     networks:
@@ -41,7 +40,6 @@ services:
     depends_on:
       - postgresql
       - solr
-    env_file: docker-compose-no-ssl.env
     volumes:
       - ./data/dataverse_data:/data
       - type: bind

@@ -4,7 +4,6 @@ services:
   traefik:
     container_name: traefik
     image: traefik:v2.5
-    env_file: docker-compose-no-ssl.env
     command:
       - "--api.insecure=true"
       - "--providers.docker=true"
