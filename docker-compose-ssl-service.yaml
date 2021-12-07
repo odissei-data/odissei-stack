@@ -49,7 +49,7 @@ services:
         target: /secrets
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dataverse.rule=Host(`${HOSTNAME}`)"
+      - "traefik.http.routers.dataverse.rule=(Host(`${HOSTNAME}`) || Host(`test.${HOSTNAME}`))"
       - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
 #      - "traefik.http.routers.dataverse.middlewares=dataverse2@docker"
       - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
