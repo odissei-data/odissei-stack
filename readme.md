@@ -12,12 +12,18 @@ proxy would take 1 or 2 seconds only, so the downtime is manageable.
 One other purpose of using proxy is to provide secured connectivity to other ODISSEI related services. The proxy will 
 not only handle SSL certificate but also handle multi subdomain scenario. While 
 there are more services
+### Preparation
+Before you can spin up any stack, you have to create the public facing network for the proxy
+```shell
+docker network create traefik-public
+```
 
 ### Building dev stack
 This stack is meant to be used mainly as the dev stack on local host. 
 It can be run on any remote server as well, i.e for demo purpose, when `HOSTNAME` in associated `env` file is 
 properly set. 
 #### Step 1: Start the proxy
+
  `docker-compose-no-ssl.env`
 ```shell
 docker-compose -f docker-compose-no-ssl-proxy.yaml up -d

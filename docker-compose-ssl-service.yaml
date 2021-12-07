@@ -1,0 +1,77 @@
+version: '3.5'
+
+services:
+  postgresql:
+    container_name: postgresql
+    image: library/postgres:10.13
+    restart: unless-stopped
+    env_file: .env.prod
+    environment:
+      - "LC_ALL"
+      - "POSTGRES_DB=dataverse"
+      - "POSTGRES_USER=dataverse"
+      - "POSTGRES_PASSWORD=changeme"
+      - "POSTGRES_PORT=5432"
+    volumes:
+      - ./data/postgresql_data:/var/lib/postgresql/data
+
+  solr:
+    container_name: solr
+    image: iqss/solr-k8s
+    volumes:
+      - ./data/solr_data:/opt/solr/server/solr/collection1/data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.solr.rule=Host(`solr.${HOSTNAME}`)"
+      - "traefik.http.services.solr.loadbalancer.server.port=8983"
+      - "traefik.http.routers.solr.tls.certresolver=myresolver"
+      - "traefik.http.routers.solr.entrypoints=https"
+      - "traefik.http.routers.solr.middlewares=solr@docker"
+      - "traefik.http.middlewares.solr.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+    networks:
+      - traefik-public
+
+  dataverse:
+    container_name: dataverse
+    user:
+      "root"
+    build:
+      context: .
+      dockerfile: ./docker/dataverse-k8s/payara/Dockerfile
+    depends_on:
+      - postgresql
+      - solr
+    env_file: .env.prod
+    volumes:
+      - ./data/dataverse_data:/data
+      - type: bind
+        source: ./personas/docker-compose/secrets
+        target: /secrets
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.dataverse.rule=Host(`${HOSTNAME}`)"
+      - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
+#      - "traefik.http.routers.dataverse.middlewares=dataverse2@docker"
+      - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
+      - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
+      - "traefik.http.routers.dataverse.entrypoints=https"
+#      - "traefik.http.middlewares.dataverse2.ipwhitelist.sourcerange=127.0.0.1/32, 0.0.0.0/0"
+      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+
+  contact-web:
+    image: nginx:latest
+    container_name: contact-web
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html
+    labels:
+      - "traefik.http.routers.contact-web.rule=Host(`${HOSTNAME}`)"
+      - "traefik.http.routers.contact-web.middlewares=contact-web@docker"
+      - "traefik.http.services.contact-web.loadbalancer.server.port=80"
+      - "traefik.http.routers.contact-web.entrypoints=contact-web"
+      - "traefik.http.middlewares.contact-web.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+    networks:
+      - traefik-public
+
+networks:
+  traefik-public:
+    external: true
