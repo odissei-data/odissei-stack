@@ -49,14 +49,13 @@ services:
         target: /secrets
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dataverse.rule=(Host(`${HOSTNAME}`) || Host(`test.${HOSTNAME}`))"
+#      - "traefik.http.routers.dataverse.rule=(Host(`${HOSTNAME}`) || Host(`test.${HOSTNAME}`))"
+      - "traefik.http.routers.dataverse.rule=Host(Host(`test.${HOSTNAME}`)"
       - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
-#      - "traefik.http.routers.dataverse.middlewares=dataverse2@docker"
-      - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
+#      - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
       - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
       - "traefik.http.routers.dataverse.entrypoints=https"
-#      - "traefik.http.middlewares.dataverse2.ipwhitelist.sourcerange=127.0.0.1/32, 0.0.0.0/0"
-      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+#      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
 
   contact-web:
     image: nginx:latest
