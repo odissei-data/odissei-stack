@@ -28,6 +28,8 @@ services:
       - "traefik.http.services.dbgui.loadbalancer.server.port=8080"
       - "traefik.http.routers.dbgui.entrypoints=https"
       - "traefik.http.middlewares.dbgui.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+    networks:
+      - traefik-public
 
   solr:
     container_name: solr
@@ -67,6 +69,8 @@ services:
       - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
       - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
       - "traefik.http.routers.dataverse.entrypoints=https"
+    networks:
+      - traefik-public
 
   contact-web:
     image: nginx:latest
