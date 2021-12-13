@@ -67,7 +67,7 @@ services:
         target: /secrets
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.dataverse.rule=Host(`test.${HOSTNAME}`)"
+      - "traefik.http.routers.dataverse.rule=Host(`portal.${HOSTNAME}`)"
       - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
       - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
       - "traefik.http.routers.dataverse.entrypoints=https"
