@@ -1,0 +1,3 @@
+[submodule "Skosmos"]
+	path = Skosmos
+	url = https://github.com/NatLibFi/Skosmos
