@@ -44,26 +44,6 @@ services:
     networks:
       - traefik-public
 
-  # solr:
-  #   container_name: solr
-  #   image: "coronawhy/solr:8.9.0"
-  #   environment:
-  #     - "SOLR_OPTS=-Dlog4j2.formatMsgNoLookups=true"
-  #     - "SOLR_HOST=solr"
-  #     - "SOLR_PORT=8983"
-  #     - "SOLR_JAVA_MEM=-Xms1g -Xmx1g"
-  #   volumes:
-  #     - ./solr-data:/opt/solr/server/solr/collection1/data
-  #     - ./config/schema.xml:/var/solr/data/collection1/conf/schema.xml
-  #   labels:
-  #     - "traefik.http.routers.solr.rule=Host(`solr.${HOSTNAME}`)"
-  #     - "traefik.http.services.solr.loadbalancer.server.port=8983"
-  #     - "traefik.http.middlewares.solr.ipwhitelist.sourcerange=127.0.0.1/32, 0.0.0.0/0"
-  #     - "traefik.http.routers.solr.middlewares=solr@docker"
-  #     - "traefik.http.routers.solr.entrypoints=http"
-  #   networks:
-  #     - traefik-public
-
   dataverse:
     container_name: dataverse
     user:

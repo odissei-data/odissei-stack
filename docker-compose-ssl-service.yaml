@@ -29,7 +29,8 @@ services:
       - "traefik.http.routers.dbgui.tls.certresolver=myresolver"
       - "traefik.http.services.dbgui.loadbalancer.server.port=8080"
       - "traefik.http.routers.dbgui.entrypoints=https"
-      - "traefik.http.middlewares.dbgui.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      # - "traefik.http.middlewares.dbgui.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      - "traefik.http.middlewares.dbgui.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
     networks:
       - traefik-public
 
@@ -47,7 +48,8 @@ services:
       - "traefik.http.routers.solr.tls.certresolver=myresolver"
       - "traefik.http.routers.solr.entrypoints=https"
       - "traefik.http.routers.solr.middlewares=solr@docker"
-      - "traefik.http.middlewares.solr.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      # - "traefik.http.middlewares.solr.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      - "traefik.http.middlewares.solr.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
     networks:
       - traefik-public
 
@@ -73,6 +75,8 @@ services:
       - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
       - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
       - "traefik.http.routers.dataverse.entrypoints=https"
+      # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
     networks:
       - traefik-public
 
@@ -88,7 +92,8 @@ services:
       - "traefik.http.routers.cbs-contact.tls.certresolver=myresolver"
       - "traefik.http.routers.cbs-contact.entrypoints=https"
       - "traefik.http.routers.cbs-contact.middlewares=cbs-contact@docker"
-      - "traefik.http.middlewares.cbs-contact.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      # - "traefik.http.middlewares.cbs-contact.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
+      - "traefik.http.middlewares.cbs-contact.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
     networks:
       - traefik-public
 
