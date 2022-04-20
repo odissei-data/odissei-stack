@@ -37,8 +37,8 @@ services:
       - "traefik.enable=true"
       - "traefik.http.routers.solr.rule=Host(`solr.${HOSTNAME}`)"
       - "traefik.http.services.solr.loadbalancer.server.port=8983"
-      #- "traefik.http.routers.solr.tls=true"
-      - "traefik.http.routers.solr.tls.certresolver=myresolver"
+      # - "traefik.http.routers.solr.tls=true"
+      # - "traefik.http.routers.solr.tls.certresolver=myresolver"
       - "traefik.http.routers.solr.middlewares=solr@docker"
       - "traefik.http.routers.solr.entrypoints=http"
     networks:
