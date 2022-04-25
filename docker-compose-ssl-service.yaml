@@ -121,7 +121,7 @@ services:
     #    - ./data/fuseki-input:/data
     volumes:
       - type: bind
-        source: ./Skosmos/dockerfiles/config/skosmos.ttl
+        source: ./skosmos_config/skosmos.ttl
         target: /fuseki/configuration/skosmos.ttl
     labels:
       - "traefik.enable=true"
@@ -154,7 +154,7 @@ services:
               #  - .:/var/www/html
     volumes:
       - type: bind
-        source: ./skosmos_config/skosmos.ttl
+        source: ./skosmos_config/docker-compose-skosmos.ttl
         target: /var/www/html/config.ttl
     ports:
       - 8000:80
