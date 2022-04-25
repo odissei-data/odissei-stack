@@ -57,6 +57,7 @@ services:
     container_name: dataverse
     user:
       "root"
+    image: "coronawhy/dataverse:5.9"
     build:
       context: .
       dockerfile: ./docker/dataverse-k8s/payara/Dockerfile
@@ -75,6 +76,7 @@ services:
       - "traefik.http.services.dataverse.loadbalancer.server.port=8080"
       - "traefik.http.routers.dataverse.tls.certresolver=myresolver"
       - "traefik.http.routers.dataverse.entrypoints=https"
+      - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
       # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
       - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
     networks:
@@ -152,7 +154,7 @@ services:
               #  - .:/var/www/html
     volumes:
       - type: bind
-        source: ./Skosmos/dockerfiles/config/config-docker-compose.ttl
+        source: ./skosmos_config/skosmos.ttl
         target: /var/www/html/config.ttl
     ports:
       - 8000:80
