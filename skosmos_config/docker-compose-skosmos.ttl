@@ -117,3 +117,36 @@
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <http://cbs.nl/variables/> .
+
+:elsst a skosmos:Vocabulary, void:Dataset ;
+    dc:title "ELLST Thesaurus"@en ;
+    skosmos:shortname "ELSST"
+    dc:subject :cat_general ;
+    void:uriSpace "https://elsst.cessda.eu/id/";
+    skosmos:language "en", "nl", "de";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://thesauri.cessda.eu/elsst/> .
+
+:cessda-topic a skosmos:Vocabulary, void:Dataset ;
+    dc:title "CESSDA Topic Classification"@en ;
+    skosmos:shortname "CESSDA"
+    dc:subject :cat_general ;
+    void:uriSpace "https://vocabularies.cessda.eu/urn/urn:ddi:int.cessda.cv:TopicClassification:4.2";
+    skosmos:language "en", "nl", "de";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TopicClassification> .
+
+:cessda-topic a skosmos:Vocabulary, void:Dataset ;
+    dc:title "CESSDA General Data Format"@en ;
+    skosmos:shortname "CESSDA Data format"
+    dc:subject :cat_general ;
+    void:uriSpace "https://vocabularies.cessda.eu/urn/urn:ddi:int.ddi.cv:GeneralDataFormat:2.0";
+    skosmos:language "en", "nl", "de";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat> .
