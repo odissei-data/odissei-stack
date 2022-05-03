@@ -112,7 +112,8 @@
     skosmos:shortName "CBS";
     dc:subject :cat_general ;
     void:uriSpace "http://cbs.nl/variables/";
-    skosmos:language "en", "de";
-    skosmos:defaultLanguage "de";
+    skosmos:language "en", "nl";
+    skosmos:defaultLanguage "nl";
+    skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <http://cbs.nl/variables/> .

@@ -36,9 +36,11 @@ services:
 
   solr:
     container_name: solr
-    image: iqss/solr-k8s
+    image: coronawhy/solr:8.9.0
+    privileged: true
     volumes:
       - ./data/solr_data:/opt/solr/server/solr/collection1/data
+      - ./config/schema.xml:/var/solr/data/collection1/conf/schema.xml  
     environment:
       - "SOLR_OPTS=-Dlog4j2.formatMsgNoLookups=true"
     labels:
@@ -78,7 +80,8 @@ services:
       - "traefik.http.routers.dataverse.entrypoints=https"
       - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
       # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
-      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
+      # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
+      - "traefik.http.middlewares.dataverse.ipwhitelist.sourcerange=77.165.196.232/32"
     networks:
       - traefik-public
 
