@@ -108,7 +108,7 @@
     skosmos:sparqlGraph <http://zbw.eu/stw/> .
 
 :cbs a skosmos:Vocabulary, void:Dataset ;
-    dc:title "CBS Thesaurus"@en ;
+    dc:title "CBS Variable Thesaurus"@en ;
     skosmos:shortName "CBS";
     dc:subject :cat_general ;
     void:uriSpace "http://cbs.nl/variables/";
@@ -120,7 +120,7 @@
 
 :elsst a skosmos:Vocabulary, void:Dataset ;
     dc:title "ELLST Thesaurus"@en ;
-    skosmos:shortname "ELSST"
+    skosmos:shortname "ELSST";
     dc:subject :cat_general ;
     void:uriSpace "https://elsst.cessda.eu/id/";
     skosmos:language "en", "nl", "de";
@@ -129,102 +129,101 @@
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://thesauri.cessda.eu/elsst/> .
 
-:cessda-topic a skosmos:Vocabulary, void:Dataset ;
+:topicclassification a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Topic Classification"@en ;
-    skosmos:shortname "CESSDA"
+    skosmos:shortname "CESSDA Topic Classification";
     dc:subject :cat_general ;
-    void:uriSpace "https://vocabularies.cessda.eu/urn/urn:ddi:int.cessda.cv:TopicClassification:4.2";
+    void:uriSpace "https://vocabularies.cessda.eu/";
     skosmos:language "en", "nl", "de";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TopicClassification> .
 
-:cessda-topic a skosmos:Vocabulary, void:Dataset ;
+:dataformat a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA General Data Format"@en ;
-    skosmos:shortname "CESSDA Data format"
+    skosmos:shortname "CESSDA Data format";
     dc:subject :cat_general ;
-    void:uriSpace "https://vocabularies.cessda.eu/urn/urn:ddi:int.ddi.cv:GeneralDataFormat:2.0";
+    void:uriSpace "https://vocabularies.cessda.eu/";
     skosmos:language "en", "nl", "de";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat> .
 
-:cessda-analysis a skosmos:Vocabulary, void:Dataset ;
+:analysisunit a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Analysis Unit"@en ;
-    skosmos:shortname "CESSDA Analysis Unit"
+    skosmos:shortname "CESSDA Analysis Unit" ;
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/AnalysisUnit/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/AnalysisUnit> .
 
-:cessda-time-method a skosmos:Vocabulary, void:Dataset ;
+:timemethod a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Time Method"@en ;
-    skosmos:shortname "CESSDA Time Method"
+    skosmos:shortname "CESSDA Time Method";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/TimeMethod/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TimeMethod> .
 
-:cessda-sampling-procedure a skosmos:Vocabulary, void:Dataset ;
+:samplingprocedure a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Sampling Procedure"@en ;
-    skosmos:shortname "CESSDA Sampling procedure"
+    skosmos:shortname "CESSDA Sampling procedure";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/SamplingProcedure/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/SamplingProcedure> .
 
-:cessda-type-of-instrument a skosmos:Vocabulary, void:Dataset ;
+:typeofinstrument a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Type of Instrument Unit"@en ;
-    skosmos:shortname "CESSDA Type of instrument"
+    skosmos:shortname "CESSDA Type of instrument";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/TypeOfInstrument/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/TypeOfInstrument> .
 
-:cessda-data-source-type a skosmos:Vocabulary, void:Dataset ;
+:datasourcetype a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Data Source Type"@en ;
-    skosmos:shortname "CESSDA Data Source Type"
+    skosmos:shortname "CESSDA Data Source Type";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/DataSourceType/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/DataSourceType> .
 
-:cessda-summary-statistics a skosmos:Vocabulary, void:Dataset ;
+:summarystatistictype a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Summary Statistics"@en ;
-    skosmos:shortname "CESSDA Summary Statistics"
+    skosmos:shortname "CESSDA Summary Statistics";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/SummaryStatisticType/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/SummaryStatistics> .
 
-:cessda-mode-of-collection a skosmos:Vocabulary, void:Dataset ;
+:modeofcollection a skosmos:Vocabulary, void:Dataset ;
     dc:title "CESSDA Mode of Collection"@en ;
-    skosmos:shortname "CESSDA Mode Of Collection"
+    skosmos:shortname "CESSDA Mode Of Collection";
     dc:subject :cat_general ;
-    void:uriSpace "";
+    void:uriSpace "https://vocabularies.cessda.eu/vocabulary/ModeOfCollection/";
     skosmos:language "en", "nl", "de", "it", "fr";
     skosmos:defaultLanguage "en";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/ModeOfCollection> .
-

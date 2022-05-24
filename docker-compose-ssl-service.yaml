@@ -60,9 +60,9 @@ services:
     user:
       "root"
     image: "coronawhy/dataverse:5.9"
-    build:
-      context: .
-      dockerfile: ./docker/dataverse-k8s/payara/Dockerfile
+    #    build:
+    #  context: .
+    #  dockerfile: ./docker/dataverse-k8s/payara/Dockerfile
     depends_on:
       - postgresql
       - solr
@@ -80,8 +80,8 @@ services:
       - "traefik.http.routers.dataverse.entrypoints=https"
       - "traefik.http.routers.dataverse.middlewares=dataverse@docker"
       # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6"
-      # - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
-      - "traefik.http.middlewares.dataverse.ipwhitelist.sourcerange=77.165.196.232/32"
+      - "traefik.http.middlewares.dataverse.basicauth.users=user:$$2y$$05$$zig/c1pe6XXAJXFBRzx6oeshIa7d3GuZuKaRTjegGbyCykZkXjYU6,temp_user:$$apr1$$3vnhRsEm$$SqsuTm6w1NMfR7.KyImmB/"
+      # - "traefik.http.middlewares.dataverse.ipwhitelist.sourcerange=77.165.196.232/32"
     networks:
       - traefik-public
 
