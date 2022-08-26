@@ -1,0 +1,3 @@
+[submodule "Skosmos"]
+	path = distros/Skosmos
+	url = git@github.com:NatLibFi/Skosmos.git 
