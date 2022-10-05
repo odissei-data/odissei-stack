@@ -83,7 +83,7 @@ At the time of this writing, this .war file is versioned to Dataverse 5.10.1.
 3. Copy the machine inside the Docker instance (by default: `docker cp dataverse.war dataverse:/tmp/dataverse.war`)
 4. Move the file to the payara directory and set rights properly (`mv /tmp/dataverse.war /opt/payara/dvinstall/dataverse-new.war` & `chown payara:payara dataverse-new.war`)
 5. Use `asadmin` command to undeploy current dataverse (`asadmin undeploy dataverse`). Default credentials are expected.
-5. Use `asadmin` command to deploy new dataverse (`asadmin deploy dataverse`)
+5. Use `asadmin` command to deploy new dataverse (`asadmin deploy dataverse-new.war`)
 
 The dataverse will be deployed (and will likely show a ton of SQL errors). The expected output is "Deploy succeeded with warnings".
 
