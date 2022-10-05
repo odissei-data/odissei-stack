@@ -120,7 +120,7 @@ The block should now be available; you must enable this in Dataverse (user inter
 Sometimes (unclear why), the dataverseAdmin might not be a superUser. This has to be fixed manually in the database.
 
 1. Log into the machine that runs the Stack.
-2. `docker exec -it postgres psql -u dataverse`
+2. `docker exec -it postgres psql -U dataverse`
 3. `select * from authenticateduser;`
 4. `UPDATE authenticateduser SET superuser = 't' WHERE id = 1;`
 
