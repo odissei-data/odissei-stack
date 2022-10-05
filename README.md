@@ -1,5 +1,31 @@
 # "Archive in a box" package for ODISSEI
 
+<!-- markdown-toc start - Don't edit this section. Run M-x markdown-toc-refresh-toc -->
+**Table of Contents**
+
+- ["Archive in a box" package for ODISSEI](#archive-in-a-box-package-for-odissei)
+    - [Components and infrastructure](#components-and-infrastructure)
+    - [Starting the stack & proxy](#starting-the-stack--proxy)
+    - [Manual actions](#manual-actions)
+        - [Creating subdataverses](#creating-subdataverses)
+        - [Loading custom .war file](#loading-custom-war-file)
+        - [Logo uploading](#logo-uploading)
+        - [Adding ODISSEI metadata block](#adding-odissei-metadata-block)
+        - [Becoming superuser](#becoming-superuser)
+        - [Adding CV integration](#adding-cv-integration)
+        - [Reindexing after reboot](#reindexing-after-reboot)
+        - [Adding previously ingested data](#adding-previously-ingested-data)
+    - [New ingestion](#new-ingestion)
+        - [Overview of moving parts](#overview-of-moving-parts)
+        - [Ingestion process and commands](#ingestion-process-and-commands)
+        - [Outputs](#outputs)
+    - [Skosmos](#skosmos)
+        - [Configuration](#configuration)
+        - [Loading controlled vocabularies](#loading-controlled-vocabularies)
+
+<!-- markdown-toc end -->
+
+
 This distribution is built and versioned off the dataverse-docker project (original URL: https://github.com/IQSS/dataverse-docker/tree/ODISSEI). Read this for generalized information on how Dataverse in Docker is organized. This document will contain itself towards the specific deployment of the ODISSEI Stack.
 
 Assumed level of knowledge:
