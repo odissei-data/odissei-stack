@@ -1,147 +1,161 @@
-# "Archive in a box" package for Dataverse
-This distributive is intented for the research organizations and universities which want to run Community based Data Repository to make their data FAIR (Findable, Accessible, Interoperable and Reusable). The idea of having "Archive in a box" is simple: it should be doing an automatic installation and setting up the complete infrastructure without extra efforts and by institutions having limited technical resources. You can easily turn this demonstration service with default FAKE persistent identifiers into completely operational data archive with production DOIs, mail relay and automatically connected external storages. 
+# "Archive in a box" package for ODISSEI
 
-## Dataverse Docker module
-Dataverse Docker module was developed by [DANS-KNAW](http://dans.knaw.nl) (Data Archiving and Networked Services, the Netherlands) to run [Dataverse](http://github.com/IQSS/dataverse) data repository on Kubernetes and other Cloud services supporting Docker.
-Current available version of [Dataverse](https://github.com/IQSS/dataverse) in the Docker module is 5.8. The development of Docker module funded by [SSHOC](https://sshopencloud.eu/) project that will create the social sciences and humanities area of the European Open Science Cloud [EOSC](https://www.eosc.eu).
-## Quick Demo 
+This distribution is built and versioned off the dataverse-docker project (original URL: https://github.com/IQSS/dataverse-docker/tree/ODISSEI). Read this for generalized information on how Dataverse in Docker is organized. This document will contain itself towards the specific deployment of the ODISSEI Stack.
 
-You can run Dataverse in demo mode using default settings (FAKE DOIs, no mail relay, GUI in English, Cloud storage support disabled):
-```
-bash ./demostart.sh
-``` 
-It takes 2-5 minutes to start the complete infastructure (depends from your hardware configuration). You can find Dataverse running on http://localhost:8080.
+Assumed level of knowledge:
 
-## Basic Technologies
-This software package relies on container technologies like Docker and Kubernetes, and can install and manage all dependencies without human interaction. “Archive in a box” uses Docker Compose, a tool for defining and running multi-container Docker applications and allows configuring application's services. All networking issues such as domain name setup, SSL certificates and routing are carried out by Traefik, leading modern reverse proxy and load balancer. 
+- Familiarity with Docker, Docker Compose, and docker networks
+- Basic familiarity with Traefik
+- Basic familiarity with Dataverse and it's API and environs.
+- Familiarity with general web services and API's
+- Familiarity with the Bourne shell and it's usage on Linux. This includes generally useful command such as `git`, `ls`, `vim`, `ssh`, `cp`, `scp`.
+- (In case of .war file generation) Familiarity with Maven
 
-### Demo version and development/production service
-The demonstration version of Dataverse (“Proof of Concept”) is available out of the box after completing the installation on the local computer or Virtual Machine. It will be shipped with FAKE persistent identifiers, language switch and various content previewers, and other components integrated in the infrastructure. This default installation could be done by people without technical background and allows extensive testing of the basic functionality without spending any time on the system administration tasks related to the Dataverse setup. 
+## Components and infrastructure
 
-To run their Dataverse as a completely operational production service, data providers  should fill all settings in the [configuration file](https://github.com/IQSS/dataverse-docker/blob/master/.env) containing information about their domain name, DOIs settings, the language of web interface, mail relay, external controlled vocabularies and storage. There is also possibility to integrate Docker based custom services in the infrastructure and create own software packages serving the needs of the specific data providers, for example, to integrate a separate Shibboleth container for the federated authentication, install new data previewer or activate data processing pipeline.
+![Overview of the stack](docs/odissei-stack.jpg)
+
+## Starting the stack & proxy
+
+First of all, clone the repo to the machine you want to install the Stack.
+
+Odissei stack works by a number of scripts:
+
+- Two scrips for starting/stopping the stack itself in the root dir; named `start-odissei.sh` and `stop-odissei.sh` consectively. These use `docker compose down` at present but can be freely modified in case a stop if preferable.
+- Two scripts for starting/stopping the proxy, `start-proxy.sh` & `stop-proxy.sh`. There is no data which can be lost, so doing a `down` won't impact here.
+
+The benefit of separating these two components is that taking down Dataverse will invariably result in an empty Dataverse instance. Being able to take the proxy down and map a different URL avoids that for cosmetic changes.
+
+## Manual actions
+
+A number of manual actions are required to get to the production version of the stack. These are outlined below.
+
+The correct order of steps matters here, otherwise you may end up re-indexing a lot of times:
+
+1. (Optional) Add previously ingested data if desirable.
+2. Load the .war file
+3. (Optional) Become superuser if necessary.
+4. Create the custom metadata block and properly configure the root dataverse as you wish.
+5. Create subdataverses and apply branding
+6. CV integration, reindex.
+7. (Optional) Run ingestion to start filling Dataverse instances with data.
+
+Considering you're going to do a lot of stuff inside the Dataverse container, it's recommended to install `vim` (or `nano` in case you're not VIM savvy) inside.
+
+### Creating subdataverses
+
+The dataverse gets deployed as only having a root dataverse. In order to prepare for ingestion and separating dataverses - create 3 subdataverses under root (cbs, liss, and easy) so ingestion can occur.
+
+### Loading custom .war file
+
+A number of cosmetic changes were made for the ODISSEI stack (chiefly avoiding confusing nomenclature for users). These have been packaged into a .war file, which must be launched using the `asadmin` command inside the Dataverse docker. `asadmin` is responsible for telling the Payara webserver packaged within to deploy a new image.
+
+At the time of this writing, this .war file is versioned to Dataverse 5.10.1.
+
+1. Get a copy of the created `dataverse.war`; this can also be generated manually using [This repo](https://github.com/ekoi/dataverse/tree/v5.10.1-odissei) by using Maven.
+2. `scp` the file to the machine in question.
+3. Copy the machine inside the Docker instance (by default: `docker cp dataverse.war dataverse:/tmp/dataverse.war`)
+4. Move the file to the payara directory and set rights properly (`mv /tmp/dataverse.war /opt/payara/dvinstall/dataverse-new.war` & `chown payara:payara dataverse-new.war`)
+5. Use `asadmin` command to undeploy current dataverse (`asadmin undeploy dataverse`). Default credentials are expected.
+5. Use `asadmin` command to deploy new dataverse (`asadmin deploy dataverse`)
+
+The dataverse will be deployed (and will likely show a ton of SQL errors). The expected output is "Deploy succeeded with warnings".
+
+### Logo uploading
+
+The CBS, Easy and LISS dataverse instances won't have a logo. These can be added using the webinterface. These images are stored on the ODISSEI Google Drive.
+
+1. Log in to the dataverse as dataverseAdmin.
+2. Go to one of these dataverses
+3. Go to Edit > Theme + Widgets
+4. Upload image.
+5. Save.
+
+### Adding ODISSEI metadata block
+
+Original documentation: https://guides.dataverse.org/en/latest/admin/metadatacustomization.html
+
+ODISSEI metadata, once transformed into dataverse JSON, has variables mapped to a unique metadata block. This metadata block needs to be added to dataverse after a reboot, otherwise indexing will fail.
+
+Adding this block requires scripts being run inside the Dataverse container. It may also be added to `init.d` to automate this in the future.
+
+1. Log into the server containing your dataverse instance.
+2. Log into the dataverse container (`docker exec -it dataverse bash`)
+3. `cd /tmp/`
+4. Download the latest version of the .tsv file. At the time of this writing, this is `wget https://raw.githubusercontent.com/LauraHuisintveld/semaf-client/develop/semantic-mappings/odissei-variables.tsv`
+5. Download the update-metadata.sh script (`wget update-fields.sh`)
+6. Import the tsv file into dataverse (`curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/odissei-variables.tsv`)
+7. `sh /tmp/update-fields.sh`
+
+The block should now be available; you must enable this in Dataverse (user interface) as superadmin under Edit Dataverse for it to become visible.
+
+### Becoming superuser
+
+Sometimes (unclear why), the dataverseAdmin might not be a superUser. This has to be fixed manually in the database.
+
+1. Log into the machine that runs the Stack.
+2. `docker exec -it postgres psql -u dataverse`
+3. `select * from authenticateduser;`
+4. `UPDATE authenticateduser SET superuser = 't' WHERE id = 1;`
+
+This updates the first user in the table; logically, this is dataverseAdmin.
+
+### Adding CV integration
+
+Original documentation: https://guides.dataverse.org/en/latest/admin/metadatacustomization.html (section Using external vocabulary services) & https://guides.dataverse.org/en/latest/installation/config.html#cvocconf
+
+Adding a controlled vocabulary requires a set-up Skosmos instance, as well as a Dataverse instance set up.
+
+This is handled through a setting on Dataverse, which requires logging into the instance:
+
+1. Log into the server containing your dataverse instance.
+2. Log into the dataverse container (`docker exec -it dataverse bash`)
+3. `cd /tmp/`
+4. `wget https://gdcc.github.io/dataverse-external-vocab-support/examples/config/cvoc-conf.json`
+5. Make edits to the file as need be; pay specific attention to the `vocabs` section of this file.
+6. Once happy: `curl -X PUT --upload-file /tmp/cvoc-conf.json http://localhost:8080/api/admin/settings/:CVocConf`
+
+You can test that the integration works when going (as superadmin) inside Dataverse, and when editing a dataset. Using the keyword metadata field, a small search window should start querying your chosen CV (server) and type.
+You can debug this using the browser console to check error codes.
+
+### Reindexing after reboot
+
+Original documentation: https://guides.dataverse.org/en/latest/admin/solr-search-index.html
+
+Whenever the dataverse is rebooted, and the solr index isn't made persistent - it's lost. This means it must be reconstructed. Fortunately - there is a command for this.
+
+1. Log into the server containing your dataverse instance.
+2. Log into the dataverse container (`docker exec -it dataverse bash`)
+3. `curl http://localhost:8080/api/admin/index`
+
+Reindexing a complete dataverse instance with all datasets loaded doesn't take long usually (about 15 minutes) since we ODISSEI only contains metadata. You can check status by repeating step 1 and performing `docker logs -f dataverse`.
+
+### Adding previously ingested data
+
+Data can be added to a Dataverse in two ways:
+
+1. (re)Ingesting metadata files. This process of transformation and versioning is extensive and performin this manually will take quite some time (~10 hours).
+2. Simply using a folder with pre-ingested files from a previous dataverse.
+
+For method 2, do the following:
+
+1. First, `scp` a copy of existing data from an existing instance. Traditionally, this will live at `./distros/vanilla/postgres-data`
+2. Copy this folder entirely to your hard drive with `scp`
+3. Copy this folder to a location of your choosing on your new dataverse instance.
+4. Change the mapping in `./distros/vanilla/docker-compose.yml` for the `postgres` volumes section to use this new volume instead.
+5. Reboot the stack.
+6. Reindex.
+
+## New ingestion
+
+### Overview of moving parts
+
+### Ingestion process and commands
+
+### Outputs
+
+## Skosmos
 
 ### Configuration
-The configuration is managed in the central place in an environmental variables file called [.env](https://github.com/IQSS/dataverse-docker/blob/master/.env), so administrators have no need to modify other files in the software package. It contains all necessary settings required to deploy Dataverse, for example, to set the language or web interface, establish connection to the local database, SOLR search engine, mail relay or external storage. 
 
-### Startup process 
-The startup process of “Archive in a box” is simplified and uses init.d folder defined in .env  to arrange the order how Dataverse configuration scripts will be running. It contains bash scripts making the services run sequentially and allows easy customization of Dataverse instances according to the requirements of the data providers. All necessary actions like setting up domain name and mail relay, activate previewers, webhook installation etc could be found in this init.d folder. After being restarted, all available datasets in Dataverse will be reindexed automatically.
-
-### Custom metadata support
-Custom metadata schemes could be easily integrated in Dataverse by using the same mechanism based on the init.d folder. New schema should be declared in .env file first and after script should be added to download the schema as a .tsv file and upload it in Dataverse. As a demonstration of this feature, CESSDA CMM and CLARIN metadata schemes are already integrated and available in the software package, and could be activated in the .env file and in the Dataverse web interface.
-
-### External controlled vocabularies plugin
-The functionality to support [external controlled vocabularies](https://github.com/gdcc/dataverse-external-vocab-support) was contributed by DANS-KNAW in the collaboration with Global Dataverse Consortium, and allows connecting Dataverse to vocabularies hosted by Skosmos, ORCID, Wikidata and other service providers. “Archive in a box” has a basic demonstration of this feature and encourages developers from all over the world to implement their own interfaces in order to integrate Dataverse with third party controlled vocabularies.
-
-### External storages
-Another important feature of “Archive in a box” is external storage support. It has integrated High Performance, Kubernetes Native Object Storage called MinIO and delivers scalable, secure, S3 compatible object storage to every public cloud like Amazon AWS, Google Cloud Platform or Microsoft Azure. It means Dataverse can store data in the Cloud storage instead of local file storage, and different storages could be used for the containers (subdataverses) of different data providers created within the same Dataverse instance.
-
-### Webhooks for third parties services
-There is a separate webhook implementation for the integration of external services based on Dataverse related actions like dataset modification or publication. For example, automatic FAIR assessment could be done by sending a newly created persistent identifier to the third party service when the user publishes a new dataset. There is also the possibility to integrate Dataverse with various pipelines and workflows dedicated for some specific tasks like named entity recognition in the uploaded files. It can be useful for building GDPR related workflows to get automatic checks if there are some person names present in the data.
-
-### The list of main features
-- fully automatic Dataverse deployment with Traefik proxy
-- Dataverse configuration managed through environmental file .env
-- different Dataverse distributives with services on your preference suitable for different use cases
-- external controlled vocabularies support (demo of CESSDA CMM metadata fields connected to Skosmos framework)
-- MinIO storage support
-- data previewers integrated in the distributive
-- startup process managed through scripts located in init.d folder 
-- automatic SOLR reindex 
-- external services integration PostgreSQL triggers
-- support of custom metadata schemes (CESSDA CMM, CLARIN CMDI, ...)
-- built-in Web interface localization uses [Dataverse language pack](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs) to support multiple languages out of the box
-
-# Project Requirements
-* Docker & Docker-compose
-
-# Project Setup
-1. Clone the project
-```
-git clone https://github.com/IQSS/dataverse-docker
-```
-2. Copy the environment file following the command in the project root directory
-```
-cp .env_sample .env
-```
-You can edit .env file and add your configuration for DOI service, mailrelay, S3 connections, etc.
-
-# Dataverse distributions
-You can use different Dataverse distributions, or distros, and add any Dockerized components depending from your use case. To switch to another distro you should change the variable COMPOSE_FILE in your .env file to the yaml file below.
-For example, edit .env file, change this variable 
-```
-COMPOSE_FILE=./docker-compose.yml
-```
-and apply the specification to run another Dataverse distro with ssl support:
-```
-COMPOSE_FILE=./distros/docker-compose-ssl.yml
-```
-
-### Installation
-
-Dataverse Docker module v5.8 uses Træfik, a modern HTTP reverse proxy and load balancer that makes deploying microservices easy. Træfik integrates with your existing infrastructure components (Docker, Swarm mode, Kubernetes, Marathon, Consul, Etcd, Rancher, Amazon ECS, ...) and configures itself automatically and dynamically.
-
-You need to specify the value of "traefikhost" and pub your domain name there (for example, sshopencloud.eu or just localhost) before you'll start to deploy Dataverse infrastructure:
-
-```export traefikhost=localhost``` OR ```export traefikhost=sshopencloud.eu```
-
-and create docker network for all the containers you would expose on the web
-
-```docker network create traefik```
-
-By default you'll get SSL certificate provided by letsencrypt, please specify your email address if you need https support, for example:
-
-```export useremail=team@mydataverse.org```
-
-* Make sure you have docker and docker-compose installed
-* Run `docker-compose up` to start Dataverse.
-
-Standalone Dataverse should be running on dataverse-dev.localhost or dataverse-dev.sshopencloud.eu if you've selected the domain.
-
-Default user/password: dataverseAdmin/admin and after you should change it.
-
-Check if Dataverse is already available:
-```curl http://localhost:8080```
-
-If it's not coming up please check if all required containers are up: `docker ps`
-
-```
-
-CONTAINER ID        IMAGE                                 COMMAND                  CREATED              STATUS              PORTS                                          NAMES
-fa727beadf8f   coronawhy/dataverse:5.8                    "/tini -- /bin/sh -c…"   About an hour ago   Up About an hour   0.0.0.0:4848->4848/tcp, :::4848->4848/tcp, 8181/tcp, 0.0.0.0:8009->8009/tcp, :::8009->8009/tcp, 9009/tcp, 0.0.0.0:8088->8080/tcp, :::8088->8080/tcp   dataverse
-d4b83af11948   coronawhy/solr:8.9.0                       "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:8983->8983/tcp, :::8983->8983/tcp                                                                                                             solr
-bf0478c288cd   containous/whoami                          "/whoami"                About an hour ago   Up About an hour   80/tcp                                                                                                                                                whoami
-38d7151cb7cb   postgres:10.13                             "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5433->5432/tcp, :::5433->5432/tcp                                                                                                             postgres
-ce83792a3abd   minio/minio:RELEASE.2021-12-10T23-03-39Z   "/usr/bin/docker-ent…"   About an hour ago   Up About an hour   9000/tcp, 0.0.0.0:9016-9017->9016-9017/tcp, :::9016-9017->9016-9017/tcp                                                                               minio
-92c8fa3730a2   traefik:v2.2                               "/entrypoint.sh --ap…"   About an hour ago   Up About an hour   0.0.0.0:80->80/tcp, :::80->80/tcp, 0.0.0.0:443->443/tcp, :::443->443/tcp                                                                              traefik
-```
-
-#### Enjoy Dataverse
-Open in your browser the selected domain name (like sshopencloud.eu) or just go to http://localhost:8080
-
-#### Going from Docker Compose to Kubernetes
-If you want to run Dataverse on Kubernetes please use [this module](https://github.com/IQSS/dataverse-kubernetes)
-
-### Dataverse web interface localization
-The localization of Dataverse was done in CESSDA DataverseEU and others projects. It's maintained by [Global Dataverse Community Consortium](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs) and available for the following languages:
-
-- [English (US), latest develop branch](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs/tree/develop/en_US) maintained by [IQSS Harvard](https://github.com/IQSS/dataverse/tree/develop/src/main/java/propertyFiles)
-- [French (Canada), latest available 4.19](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs/tree/dataverse-v4.19/fr_CA) maintained by [Bibliothèques Université de Montréal](https://bib.umontreal.ca/)
-- [French (France), 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/fr-FR/) maintained by [Sciences Po](https://www.sciencespo.fr/en/)
-- [German (Austria), 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/de-AT/) maintained by [AUSSDA](http://aussda.at)
-- [Slovenian, 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/sl-SI/) maintained by [ADP, Social Science Data Archive](https://www.adp.fdv.uni-lj.si/eng/)
-- [Swedish, 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/se-SE/) maintained by [SND, Swedish National Data Service](https://snd.gu.se/en)
-- [Ukrainian, 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/ua-UA/Bundle_ua.properties) maintained by [The Center for Content Analysis](http://ukrcontent.com/en/)
-- [Spanish, 4.11](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs/tree/dataverse-v4.11/es_ES) maintained by [El Consorcio Madroño](http://consorciomadrono.es/en/)
-- [Italian 4.9.4](https://github.com/IQSS/dataverse-docker/blob/master/dataversedock/dataverse-property-files/it-IT/) maintained by [Centro Interdipartimentale UniData](http://www.unidata.unimib.it)
-- [Hungarian, 4.9.4](https://github.com/IQSS/dataverse-docker/tree/master/dataversedock/dataverse-property-files/hu-HU) maintained by [TARKI](http://tarki.hu)
-- [Portuguese, 4.18.1](https://github.com/GlobalDataverseCommunityConsortium/dataverse-language-packs/tree/dataverse-v4.18.1/pt_PT) maintained by [University of Minho](https://www.uminho.pt/EN)
-- [Portuguese, 4.19](https://github.com/RNP-dadosabertos/dataverse-language-packs) maintained by [Rede Nacional de Ensino e Pesquisa/Universidade Federal do Rio Grande do Sul](https://www.dadosdepesquisa.rnp.br/)
-
-#### Warning
-
-If not all languages are coming up in the same time please increase RAM for Docker (not less than 10Gb for 5 languages). 
-
-### To Do
-* Documentation on the external controlled vocabularies support
-* Dataverse distributives for different projects
-* Information about the process to set up SSHOC Kubernetes 
+### Loading controlled vocabularies
