@@ -17,10 +17,14 @@
         - [Adding previously ingested data](#adding-previously-ingested-data)
     - [New ingestion](#new-ingestion)
         - [Overview of moving parts](#overview-of-moving-parts)
+        - [Difference between semaf-client and semaf-service](#difference-between-semaf-client-and-semaf-service)
         - [Ingestion process and commands](#ingestion-process-and-commands)
+            - [Semaf-client](#semaf-client)
+            - [Semaf service](#semaf-service)
         - [Outputs](#outputs)
     - [Skosmos](#skosmos)
         - [Configuration](#configuration)
+        - [Declaring a new vocabulary](#declaring-a-new-vocabulary)
         - [Loading controlled vocabularies](#loading-controlled-vocabularies)
 
 <!-- markdown-toc end -->
