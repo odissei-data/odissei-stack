@@ -168,20 +168,86 @@ For method 2, do the following:
 1. First, `scp` a copy of existing data from an existing instance. Traditionally, this will live at `./distros/vanilla/postgres-data`
 2. Copy this folder entirely to your hard drive with `scp`
 3. Copy this folder to a location of your choosing on your new dataverse instance.
-4. Change the mapping in `./distros/vanilla/docker-compose.yml` for the `postgres` volumes section to use this new volume instead.
+4. Change the mapping in `./distros/vanilla/docker-compose.yml` for the `postgres** volumes section to use this new volume instead.
 5. Reboot the stack.
 6. Reindex.
 
 ## New ingestion
 
+*Disclaimer: All the information in the ingestion section is subject to change. Fundamentally it will follow the same process, but will use different technical component. The goal for this change is to provide a more modular infrastructure.*
+
 ### Overview of moving parts
+
+See the image below for more detail.
+
+![Overview of ingestion flow](docs/ingestion_pipeline.jpeg)
+
+In short, there's a number of moving parts:
+
+- Presently, there is the semaf client or semaf service. This is the component responsible for ingesting the metadata files, performing the necessary transformations, and if so instructed, the ingestion to dataverse.
+- There is the Github repository which holds the mapping files, which are responsible for pointing fields towards dataverse-JSON structure.
+
+For CBS data, there are two extra components:
+- There is the dans-transformer-service, which is responsible for taking the dataverse-json, and transforming it into datacite-formatted metadata.
+- There is the Datacite minter service, which is responsible for taking in Datacite-formatted metadata, minting it, and returning a DOI.
+
+### Difference between semaf-client and semaf-service
+
+There are two projects related to this; it's good to identify the key differences here to avoid confusion.
+
+- The `semaf-client` is a Python project which works by means of crosswalks, requests, and various other services to transform a metadata file into a Dataverse-ingestable JSON structured file. Most of the settings for this live in `config.py`, which determines the location of the mapping file. The semaf-client does not have an API; files must be fed to it, either one by one, or by a loop. Modification can be done by simply running a different script, or making changes and then re-running the script.
+- `semaf-service` is a Python project which adds a Dockerized FastAPI server on top of the semaf-client. This means all arguments normally provided either by script or by configuration must now be supplied as request arguments. Since it's an API, it may be run on an external server, and invoked using HTTP.
 
 ### Ingestion process and commands
 
+The ingestion process can, by virtue of the fact, work differently. This is why it's covered twice.
+
+#### Semaf-client
+
+Semaf-client decides where files are deposited, and which mapping files are used by means of a config.py file in it's repository. When checking the `doi` branch, this will provide the best example for the CBS metadata. Additionally - by adding a URL, and an API key, deposition in dataverse is arranged.
+
+Invoking the semaf-client means invoking a CLI service. Typically this is done as such:
+
+1. Go to the directory containing the metadata files you plan to upload.
+2. Execute the following command: `for file in *; do <location-to-semaf-client/semaf-cli-import.py $FILE; done`
+
+Additionally - by adding the word `upload` after `$FILE`, files are uploaded instead.
+
+#### Semaf service
+
+The semaf service accepts a http request which should contain all variables; the mapping files to be used, the file to be transformed and/or ingested, and the dataverse instance address and API key. This can be done using any conventional tool (pyCurl, curl, or Postman in case a graphical interface is preferred).
+
 ### Outputs
+
+The semaf-client outputs a dataverse-formatted JSON file, as well as a .nt file in the /tmp/ directory of the server or machine. The semaf service only provides a HTTP response and HTTP response code, indicating success of failure.
 
 ## Skosmos
 
+Skosmos is the controlled vocabulary service, which is used for hosting .ttl files. In fact it's a number of containers, namely Jena-Fuseki for hosting the graph database and a Varnish memcache for speed. Similar to the rest of the Stack; this is run using Docker compose, which starts these containers. By mounting a number of files inside the container, it's configured upon boot.
+
 ### Configuration
 
+Skosmos has two configuration files:
+
+- The config-docker-compose.ttl configuration file located at /distros/Skosmos/dockerfiles/config. This configuration file contains the information about the vocabularies, and the URLs which are used for uploading.
+- The skosmos.ttl file, which contains the main configuration for the entire Skosmos instance.
+
+### Declaring a new vocabulary
+
+See the config-docker-compose.ttl for usage here; most of the Skosmos vocabularies are defined later in this file. By default - the UNESCO and STW are defined.
+
+Adding a new block means paying close attention to the following variables:
+
+- The name (marked with :<name>) in the very first non-indented line of a Skosmos vocabulary definition. In the case of UNESCO - this is `:unesco a skosmos:Vocabulary, void:Dataset ;`. The name is relevant for the CV integration; if an incorrect name is filled, errors will be produced when trying to query the vocabulary.
+- The languages. If you are trying to load a vocabulary which has a language which is not included, it will not work. This is relevant for the CBS Thesaurus, which is in Dutch.
+- The sparqlGraph entry; this is deeply relevant since you need to upload the .ttl files to this endpoint using the API. If you use the wrong endpoint; you will not receive content.
+
 ### Loading controlled vocabularies
+
+The volume for vocabularies is currently non-persistent. While this can be changed; a script was produced to simplify uploading all vocabularies into the default stack. This script is in the Skosmos/dockerfiles folder, and called `odissei-init.sh`. This script does 3 things:
+
+- Download .ttl files from a fixed URL (or take input from a pre-organized file on the server, such as CBS thesaurus, which is manually generated).
+- Transform them using rapper CLI command into ttl files.
+- Upload them to Jena Fuseki using a Curl command, with the correct sparqlGraph address.
+
+Adding a dictionary, or changing the version of an already uploaded dictionary, can be controlled directly through this file.
