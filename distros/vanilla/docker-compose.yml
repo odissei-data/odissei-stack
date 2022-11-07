@@ -53,6 +53,7 @@ services:
         - "WEBHOOK"
         - "CESSDA"
         - "CLARIN"
+        - ODISSEI=True
         - "doi_authority"
         - "doi_provider"
         - "doi_username"

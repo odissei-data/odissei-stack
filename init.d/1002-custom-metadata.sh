@@ -24,6 +24,21 @@ if [ "${ODISSEI}" ]; then
     curl -H "Content-Type: application/json" -X PUT \
           -d @/tmp/cv_voc.json http://localhost:8080/api/admin/settings/:CVocConf
     custommetadatablock=True
+    # Retrieve CBS metadata block and add
+    wget https://raw.githubusercontent.com/odissei-data/Custom-Metadata-Blocks/main/tsv%20files/CBSMetadata.tsv -O /tmp/cbs-metadata.tsv
+    curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/cbs-metadata.tsv
+    # Retrieve enrichments block and add
+    wget https://raw.githubusercontent.com/odissei-data/Custom-Metadata-Blocks/main/tsv%20files/enrichments.tsv -O /tmp/enrichments.tsv
+    curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/enrichments.tsv
+    # Retrieve question/information block and add
+    wget https://raw.githubusercontent.com/odissei-data/Custom-Metadata-Blocks/main/tsv%20files/questionInformation.tsv -O /tmp/questionanswer.tsv
+    curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/questionanswer.tsv
+    # Retrieve provenance block and add
+    wget https://raw.githubusercontent.com/odissei-data/Custom-Metadata-Blocks/main/tsv%20files/provenance.tsv -O /tmp/provenance.tsv
+    curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/provenance.tsv
+    # Retrieve variable information block and add
+    wget https://raw.githubusercontent.com/odissei-data/Custom-Metadata-Blocks/main/tsv%20files/variableInformation.tsv -O /tmp/variable.tsv
+    curl http://localhost:8080/api/admin/datasetfield/load -H "Content-type: text/tab-separated-values" -X POST --upload-file /tmp/variable.tsv
 fi
 
 if  [ -n "$custommetadatablock" ]; then
