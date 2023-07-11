@@ -1,14 +1,36 @@
 #!/bin/bash
 
 #cp .env_sample .env
+
+# wget from github and store CBS vocabulary in ./config/cbs-variables-thesaurus.ttl
+echo "ODISSEI CBS Variable thesaurus"
+curl -l -o cbs-variables-thesaurus.ttl https://raw.githubusercontent.com/odissei-data/vocabularies/main/cbs/cbs-variables-thesaurus-20230310.ttl
+curl -I -X POST -H Content-Type:text/turtle -T cbs-variables-thesaurus.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=http://cbs.nl/variables/
+rm cbs-variables-thesaurus.ttl
+
+exit
+
+echo "ODISSEI MCAL Vocabularies: ContentAnalysisType"
+curl -l -o ContentAnalysisType.ttl https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl
+curl -I -X POST -H Content-Type:text/turtle -T ContentAnalysisType.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://mcal.odissei.nl/cv/contentAnalysisType/v0.1/
+rm ContentAnalysisType.ttl
+
+echo "ODISSEI MCAL Vocabularies: ResearchQuestionType"
+curl -l -o ResearchQuestionType.ttl https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ResearchQuestionType.ttl
+curl -I -X POST -H Content-Type:text/turtle -T ResearchQuestionType.ttl  -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://mcal.odissei.nl/cv/researchQuestionType/v0.1/
+rm ResearchQuestionType.ttl
+
+echo "STW Thesaurus"
 curl -L -o stw.ttl.zip http://zbw.eu/stw/version/latest/download/stw.ttl.zip
 unzip -o stw.ttl.zip
 curl -I -X POST -H Content-Type:text/turtle -T stw.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=http://zbw.eu/stw/
+rm stw.ttl*
+
+echo "UNESCO Thesaurus"
 curl -L -o unescothes.ttl http://skos.um.es/unescothes/unescothes.ttl
 curl -I -X POST -H Content-Type:text/turtle -T unescothes.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=http://skos.um.es/unescothes/
+rm unescothes.ttl
 
-# wget from github and store CBS vocabulary in ./config/cbs-variables-thesaurus.ttl
-curl -I -X POST -H Content-Type:text/turtle -T cbs-variables-thesaurus.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=http://cbs.nl/variables/
 
 # ellst
 echo "getting ELLST vocab"
