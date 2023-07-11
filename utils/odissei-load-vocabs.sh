@@ -18,6 +18,11 @@ curl -l -o ResearchQuestionType.ttl https://raw.githubusercontent.com/odissei-da
 curl -I -X POST -H Content-Type:text/turtle -T ResearchQuestionType.ttl  -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://mcal.odissei.nl/cv/researchQuestionType/v0.1/
 rm ResearchQuestionType.ttl
 
+echo "ODISSEI MCAL Vocabularies: Content Features"
+curl -l -o ContentFeature.ttl https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentFeature.ttl
+curl -I -X POST -H Content-Type:text/turtle -T ContentFeature.ttl  -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://mcal.odissei.nl/cv/contentFeature/v0.1/
+rm ContentFeature.ttl
+
 echo "STW Thesaurus"
 curl -L -o stw.ttl.zip http://zbw.eu/stw/version/latest/download/stw.ttl.zip
 unzip -o stw.ttl.zip
@@ -34,6 +39,7 @@ rm unescothes.ttl
 echo "getting ELLST vocab"
 wget 'https://thesauri.cessda.eu/rest/v1/elsst-3/data?format=text/turtle' --output-document=ELSST.ttl 
 curl -I -X POST -H Content-Type:text/turtle -T ELSST.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://thesauri.cessda.eu/elsst/
+rm ELSST.ttl
 
 # cessda topic classification
 echo "getting topic classification"
@@ -42,6 +48,7 @@ curl -X 'GET' \
      -H 'accept: application/xml' > TopicClassification.rdf
 rapper TopicClassification.rdf --output turtle > TopicClassification.ttl
 curl -I -X POST -H Content-Type:text/turtle -T TopicClassification.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://vocabularies.cessda.eu/vocabulary/TopicClassification
+rm TopicClassification.*
 
 echo "getting general data format"
 curl -X 'GET' \
@@ -49,6 +56,7 @@ curl -X 'GET' \
      -H 'accept: application/xml' > GeneralDataFormat.rdf
 rapper GeneralDataFormat.rdf --output turtle > GeneralDataFormat.ttl
 curl -I -X POST -H Content-Type:text/turtle -T GeneralDataFormat.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://vocabularies.cessda.eu/vocabulary/GeneralDataFormat
+rm GeneralDataFormat.*
 
 # Analysis unit
 echo "Getting analysis unit vocab"
@@ -106,5 +114,5 @@ curl -X 'GET' \
 rapper ModeOfCollection.rdf --output turtle > ModeOfCollection.ttl
 curl -I -X POST -H Content-Type:text/turtle -T ModeOfCollection.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://vocabularies.cessda.eu/vocabulary/ModeOfCollection
 
-echo "Checking search index..."
-curl "https://skosmos.odissei.nl/rest/v1/search?vocab=stw&query=a*"
+# echo "Checking search index..."
+# curl "https://skosmos.odissei.nl/rest/v1/search?vocab=stw&query=a*"
