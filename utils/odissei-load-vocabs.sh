@@ -8,8 +8,6 @@ curl -l -o cbs-variables-thesaurus.ttl https://raw.githubusercontent.com/odissei
 curl -I -X POST -H Content-Type:text/turtle -T cbs-variables-thesaurus.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=http://cbs.nl/variables/
 rm cbs-variables-thesaurus.ttl
 
-exit
-
 echo "ODISSEI MCAL Vocabularies: ContentAnalysisType"
 curl -l -o ContentAnalysisType.ttl https://raw.githubusercontent.com/odissei-data/vocabularies/main/mcal/ContentAnalysisType.ttl
 curl -I -X POST -H Content-Type:text/turtle -T ContentAnalysisType.ttl -G https://fuseki.experimental.odissei.nl/skosmos/data --data-urlencode graph=https://mcal.odissei.nl/cv/contentAnalysisType/v0.1/
