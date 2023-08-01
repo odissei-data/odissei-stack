@@ -14,13 +14,13 @@ AUTHHEADER="YWRtaW46YWRtaW4="
 STW_URL='http://zbw.eu/stw/version/latest/download/stw.ttl.zip'
 UNESCO_URL='http://skos.um.es/unescothes/unescothes.ttl'
 ELSST_URL='https://thesauri.cessda.eu/rest/v1/elsst-3/data?format=text/turtle'
-CBS_ENDPOINT='https://raw.githubusercontent.com/odissei-data/vocabularies/main/cbs/cbs-variables-thesaurus-20230310.ttl'
+CBS_URL='https://raw.githubusercontent.com/odissei-data/vocabularies/main/cbs/cbs-variables-thesaurus-20230310.ttl'
 TOPIC_CLASSIFICATION_URL='https://vocabularies.cessda.eu/v2/vocabularies/TopicClassification/4.2.2?languageVersion=en-4.2.2_nl-4.2.2'
 GENERAL_DATA_FORMAT_URL='https://vocabularies.cessda.eu/v2/vocabularies/GeneralDataFormat/2.0.3?languageVersion=en-2.0.3_nl-2.0.3'
 ANALYSIS_UNIT_URL='https://vocabularies.cessda.eu/v2/vocabularies/AnalysisUnit/2.1.3?languageVersion=en-2.1.3_nl-2.1.3'
 TIME_METHOD_URL='https://vocabularies.cessda.eu/v2/vocabularies/TimeMethod/1.2.3?languageVersion=en-1.2_nl-1.2.3'
 SAMPLING_PROCEDURE_URL='https://vocabularies.cessda.eu/v2/vocabularies/SamplingProcedure/1.1.4?languageVersion=en-1.1.4_nl-1.1.4'
-TYPE_OF_INSTRUMENT_URL='https://vocabularies.cessda.eu/v2/vocabularies/TypeOfInstrument/1.1.4?languageVersion=en-1.1.4_nl-1.1.4'
+TYPE_OF_INSTRUMENT_URL='https://vocabularies.cessda.eu/v2/vocabularies/TypeOfInstrument/1.1.2?languageVersion=en-1.1.4_nl-1.1.2'
 DATA_SOURCE_TYPE_URL='https://vocabularies.cessda.eu/v2/vocabularies/DataSourceType/1.0.2?languageVersion=en-1.0.2_nl-1.0.2'
 SUMMARY_STATISTICS_URL='https://vocabularies.cessda.eu/v2/vocabularies/SummaryStatisticType/2.1.2?languageVersion=en-2.1.2_nl-2.1.2'
 MODE_OF_COLLECTION_URL='https://vocabularies.cessda.eu/v2/vocabularies/ModeOfCollection/4.0.3?languageVersion=en-4.0.3_nl-4.0.3'
@@ -64,6 +64,15 @@ curl -X POST \
  -H "Authorization: Basic $AUTHHEADER" \
  --data-binary @unescothes.ttl \
  $TARGET/skosmos/data?graph=$UNESCO_GRAPH_ENDPOINT
+
+# CBS
+echo "Getting CBS"
+curl -L -o cbs.ttl $CBS_URL
+curl -X POST \
+ -H "Content-Type: text/turtle" \
+ -H "Authorization: Basic $AUTHHEADER" \
+ --data-binary @cbs.ttl \
+ $TARGET/skosmos/data?graph=$CBS_GRAPH_ENDPOINT
 
 # Topic classification
 echo "Getting topic classification"
