@@ -1,3 +1,6 @@
 [submodule "Skosmos"]
 	path = distros/Skosmos
 	url = git@github.com:NatLibFi/Skosmos.git 
+[submodule "utils/Custom-Metadata-Blocks"]
+	path = utils/Custom-Metadata-Blocks
+	url = https://github.com/odissei-data/Custom-Metadata-Blocks.git
