@@ -10,7 +10,6 @@ services:
         - "5433:5432"
       image: postgres:10.13
       restart: unless-stopped
-
       environment:
         - "LC_ALL=C.UTF-8"
         - "POSTGRES_DB"
@@ -27,6 +26,7 @@ services:
       image: coronawhy/solr:8.9.0
       container_name: solr
       privileged: true
+      restart: unless-stopped
       ports:
         - "8983:8983"
       environment:
@@ -77,6 +77,7 @@ services:
         - traefik
       image: ${DOCKER_HUB}:${VERSION}
       container_name: dataverse
+      restart: unless-stopped
       privileged: true
       user:
         "root"
@@ -142,7 +143,7 @@ services:
         - "RSERVE_PORT=6311"
         - "RSERVE_USER=rserve"
         - "RSERVE_PASSWORD=rserve"
-        - "JVM_OPTS='-Xmx1g -Xms1g -XX:MaxPermSize=2g -XX:PermSize=2g'"
+        - "JVM_OPTS='-Xmx4g -Xms2g -XX:MaxPermSize=2g -XX:PermSize=2g'"
       depends_on:
         - postgres
         - solr

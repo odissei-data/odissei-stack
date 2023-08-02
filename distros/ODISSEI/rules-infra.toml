@@ -18,6 +18,12 @@
        service = "fuseki"
      [http.routers.fuseki.tls]
         certResolver = "myresolver"
+     [http.routers.solr]
+       rule = "Host(`solr.{{ env "hostname" }}`)"
+       entrypoints = ["websecure"]
+       service = "solr"
+     [http.routers.solr.tls]
+        certResolver = "myresolver"
 
  [http.services]
         # Define how to reach an existing service on our infrastructure
@@ -30,3 +36,6 @@
         [http.services.fuseki.loadBalancer]
            [[http.services.fuseki.loadBalancer.servers]]
              url = "http://fuseki:3030"
+        [http.services.solr.loadBalancer]
+           [[http.services.solr.loadBalancer.servers]]
+             url = "http://solr:8983"

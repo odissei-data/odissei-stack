@@ -124,7 +124,7 @@
     dc:subject :cat_general ;
     void:uriSpace "https://elsst.cessda.eu/id/";
     skosmos:language "en", "nl", "de";
-    skosmos:defaultLanguage "en";
+    skosmos:defaultLanguage "nl";
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://thesauri.cessda.eu/elsst/> .
@@ -227,3 +227,36 @@
     skosmos:showTopConcepts true ;
     void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
     skosmos:sparqlGraph <https://vocabularies.cessda.eu/vocabulary/ModeOfCollection> .
+
+:researchquestiontype a skosmos:Vocabulary, void:Dataset ;
+    dc:title "MCAL Research Question Type"@en ;
+    skosmos:shortname "MCAL Research Question Type";
+    dc:subject :cat_general ;
+    void:uriSpace "https://odissei-data.nl/mcal/researchquestiontype";
+    skosmos:language "en", "nl";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://odissei-data.nl/mcal/researchquestiontype> .
+
+:contentanalysistype a skosmos:Vocabulary, void:Dataset ;
+    dc:title "MCAL Content Analysis Type"@en ;
+    skosmos:shortname "MCAL Content Analysis Type";
+    dc:subject :cat_general ;
+    void:uriSpace "https://odissei-data.nl/mcal/contentanalysistype";
+    skosmos:language "en", "nl";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://odissei-data.nl/mcal/contentanalysistype> .
+
+:contentfeatures a skosmos:Vocabulary, void:Dataset ;
+    dc:title "MCAL Content Features"@en ;
+    skosmos:shortname "MCAL Content Features";
+    dc:subject :cat_general ;
+    void:uriSpace "https://odissei-data.nl/mcal/contentfeatures";
+    skosmos:language "en", "nl";
+    skosmos:defaultLanguage "en";
+    skosmos:showTopConcepts true ;
+    void:sparqlEndpoint <http://fuseki-cache:80/skosmos/sparql> ;
+    skosmos:sparqlGraph <https://odissei-data.nl/mcal/contentfeatures> .
