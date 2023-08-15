@@ -146,6 +146,14 @@
     <field name="metadataSource" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="isHarvested" type="boolean" stored="true" indexed="true" multiValued="false"/>
     <field name="fileDeleted" type="boolean" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansDataversePid" type="text_en" stored="true" indexed="true" multiValued="false"/>
+
+    <field name="dansDataversePidVersion" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansBagId" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansNbn" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansOtherId" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansOtherIdVersion" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansSwordToken" type="text_en" stored="true" indexed="true" multiValued="false"/>
 
     <field name="dvName" type="text_en" stored="true" indexed="true" multiValued="false"/>
     <field name="dvAlias" type="text_en" stored="true" indexed="true" multiValued="false"/>
@@ -155,7 +163,8 @@
     <field name="dvCategory" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="categoryOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="identifierOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
-    
+    <field name="dansElsstClassification" type="string" stored="true" indexed="true" multiValued="false"/>
+
     <field name="publicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="dsPublicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
 
@@ -164,7 +173,8 @@
     <field name="publicationStatus" type="string" stored="true" indexed="true" multiValued="true"/>
     <field name="externalStatus" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="embargoEndDate" type="long" stored="true" indexed="true" multiValued="false"/>
-    
+    <field name="dansRightsHolder" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansPersonalDataPresent" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="subtreePaths" type="string" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileName" type="text_en" stored="true" indexed="true" multiValued="true"/>
@@ -180,6 +190,61 @@
     <field name="variableNotes" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileDescription" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansTemporalCoverage" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansTemporalCoverageText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialCoverageText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPoint" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointX" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointY" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBox" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxNorth" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxEast" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxSouth" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxWest" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialCoverageControlled" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansRelationMetadata" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansAudience" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelation" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationURI" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dccd-projectType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-category" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-principalInvestigator" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-objectType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-elementType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-taxon" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-location" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-latitude" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-longitude" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-period" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-periodStart" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-periodEnd" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansCessdaClassification" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansUnitOfAnalysis" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansUniverse" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansTimeMethod" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansFrequencyOfDataCollection" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSamplingProcedureCV" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSamplingProcedureFreeText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansCollectionMode" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansResearchInstrument" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansDataCollectionSituation" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansActionsToMinimizeLoss" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansWeighting" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansResponseRate" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansMetadataLanguage" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionSchemeName" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionSchemeDescription" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionId" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionName" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionText" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileTypeGroupFacet" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="fileTypeDisplay" type="string" stored="true" indexed="true" multiValued="false"/>
@@ -403,8 +468,40 @@
     <field name="variable" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="weighting" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="westLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="workflowURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="variableVocabularyURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="variableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="variableTrefwoord" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="matchedTerm" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel1" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel2" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel3" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri2" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri1" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri3" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="conceptVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="conceptVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="conceptVariableID" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="conceptVariableObjecttype" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="conceptVariableValidFrom" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="conceptVariableVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="conceptVariableVersionResponsibility" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="conceptVariableGroeppad" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="conceptVariableThema" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="conceptVariableWaardestelselnaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="variableId" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="variableProcessingInstruction" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="variableDataType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="variableVolgnummer" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="providerName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="NaamInDscCatalogus" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="UniekeNaam" type="text_en" multiValued="true" stored="true" indexed="true"/>        
+    <field name="Eigenaar" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="GeldigVanaf" type="text_en" multiValued="true" stored="true" indexed="true"/>        
+    <field name="GeldigTot" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="Versie" type="text_en" multiValued="true" stored="true" indexed="true"/>        
+
     <!-- SCHEMA-FIELDS::END -->
-    
 
     <copyField source="description" dest="_text_" maxChars="3000"/>
 
