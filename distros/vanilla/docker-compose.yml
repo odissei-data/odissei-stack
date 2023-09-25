@@ -37,6 +37,7 @@ services:
       volumes:
         - solr-data:/opt/solr/server/solr/collection1/data
         - ./config/schema.xml:/var/solr/data/collection1/conf/schema.xml
+        - ./config/solrconfig.xml:/var/solr/data/collection1/conf/solrconfig.xml
       labels:
         - "traefik.enable=true"
         - "traefik.http.routers.solr.rule=Host(`solr.${traefikhost}`)"
