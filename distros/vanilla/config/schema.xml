@@ -205,8 +205,8 @@
     <field name="dansSpatialBoxScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansSpatialCoverageControlled" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
-    <field name="dansRelationMetadata" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansAudience" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansCollection" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansRelation" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansRelationType" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansRelationText" type="text_en" stored="true" indexed="true" multiValued="true"/>
@@ -500,6 +500,7 @@
     <field name="GeldigVanaf" type="text_en" multiValued="true" stored="true" indexed="true"/>        
     <field name="GeldigTot" type="text_en" multiValued="true" stored="true" indexed="true"/>    
     <field name="Versie" type="text_en" multiValued="true" stored="true" indexed="true"/>        
+    <field name="frequencyOfUse" type="text_en" multiValued="true" stored="true" indexed="true"/>        
 
     <!-- SCHEMA-FIELDS::END -->
 
