@@ -1,25 +1,25 @@
   [http.routers]
    # Define a connection between requests and services
      [http.routers.dataverse]
-        rule = "Host(`portal.{{ env "hostname" }}`)"
+        rule = "Host(`portal.{{ env "traefikhost" }}`)"
         entrypoints = ["websecure"]
         service = "dataverse"
      [http.routers.dataverse.tls]
         certResolver = "myresolver"
      [http.routers.skosmos]
-        rule = "Host(`skosmos.{{ env "hostname" }}`)"
+        rule = "Host(`skosmos.{{ env "traefikhost" }}`)"
         entrypoints = ["websecure"]
         service = "skosmos"
      [http.routers.skosmos.tls]
         certResolver = "myresolver"
      [http.routers.fuseki]
-       rule = "Host(`fuseki.{{ env "hostname" }}`)"
+       rule = "Host(`fuseki.{{ env "traefikhost" }}`)"
        entrypoints = ["websecure"]
        service = "fuseki"
      [http.routers.fuseki.tls]
         certResolver = "myresolver"
      [http.routers.solr]
-       rule = "Host(`solr.{{ env "hostname" }}`)"
+       rule = "Host(`solr.{{ env "traefikhost" }}`)"
        entrypoints = ["websecure"]
        service = "solr"
      [http.routers.solr.tls]
@@ -32,7 +32,7 @@
              url = "http://dataverse:8080"
         [http.services.skosmos.loadBalancer]
            [[http.services.skosmos.loadBalancer.servers]]
-             url = "http://skosmos:80"
+             url = "http://skosmos-web:80"
         [http.services.fuseki.loadBalancer]
            [[http.services.fuseki.loadBalancer.servers]]
              url = "http://fuseki:3030"
