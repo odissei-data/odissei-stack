@@ -163,7 +163,7 @@
     <field name="dvCategory" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="categoryOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="identifierOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
-    <field name="dansElsstClassification" type="string" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansElsstClassification" type="string" stored="true" indexed="true" multiValued="true"/>
 
     <field name="publicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="dsPublicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
@@ -205,6 +205,7 @@
     <field name="dansSpatialBoxScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansSpatialCoverageControlled" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
+    <field name="dansRelationMetadata" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansAudience" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansCollection" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansRelation" type="text_en" stored="true" indexed="true" multiValued="true"/>
@@ -293,18 +294,22 @@
 
     <field name="dsPersistentId" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="filePersistentId" type="text_en" multiValued="false" stored="true" indexed="true"/>
-    
+    <!-- Dataverse geospatial search -->
+    <!-- https://solr.apache.org/guide/8_11/spatial-search.html#rpt -->
+    <field name="geolocation" type="location_rpt" multiValued="true" stored="true" indexed="true"/>
+    <!-- https://solr.apache.org/guide/8_11/spatial-search.html#bboxfield -->
+    <field name="boundingBox" type="bbox" multiValued="true" stored="true" indexed="true"/>
     <!--
         METADATA SCHEMA FIELDS
         Now following: any fields generated from the metadata schemas loaded into Dataverse.
-        
+
         Note: You can retrieve a list of the following fields from a specific API endpoint of your Dataverse
               installation, available at "http://<your Dataverse host>/api/admin/index/solr/schema".
               See also https://guides.dataverse.org/en/latest/admin/metadatacustomization.html#updating-the-solr-schema
-              
+
         Note: Please see https://guides.dataverse.org/en/latest/admin/metadatacustomization.html for advice on
               how to create your own metadata schemas.
-        
+
         WARNING: Do not remove the following include guards if you intend to use the neat helper scripts we provide.
     -->
     <!-- SCHEMA-FIELDS::BEGIN -->
@@ -407,7 +412,7 @@
     <field name="producerName" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="producerURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="productionDate" type="text_en" multiValued="false" stored="true" indexed="true"/>
-    <field name="productionPlace" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="productionPlace" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="publication" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="publicationCitation" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="publicationIDNumber" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -465,13 +470,12 @@
     <field name="topicClassification" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="unitOfAnalysis" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="universe" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variable" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="weighting" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="westLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="workflowURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variableVocabularyURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variableTrefwoord" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableVocabularyURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableTrefwoord" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="matchedTerm" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="elsstVarLabel1" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="elsstVarLabel2" type="text_en" multiValued="true" stored="true" indexed="true"/>
@@ -479,29 +483,32 @@
     <field name="elsstVarUri2" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="elsstVarUri1" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="elsstVarUri3" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="conceptVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="conceptVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="conceptVariableID" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="conceptVariableObjecttype" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="conceptVariableValidFrom" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="conceptVariableVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="conceptVariableVersionResponsibility" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="conceptVariableGroeppad" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="conceptVariableThema" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="conceptVariableWaardestelselnaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variableId" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="variableProcessingInstruction" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="variableDataType" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="variableVolgnummer" type="text_en" multiValued="true" stored="true" indexed="true"/>    
+    <field name="frequencyOfUse" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableID" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableObjecttype" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableValidFrom" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableVersionResponsibility" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableGroeppad" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableThema" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableWaardestelselnaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableId" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableLabel" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableProcessingInstruction" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableDataType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableVolgnummer" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <field name="providerName" type="text_en" multiValued="true" stored="true" indexed="true"/>
-    <field name="NaamInDscCatalogus" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="UniekeNaam" type="text_en" multiValued="true" stored="true" indexed="true"/>        
-    <field name="Eigenaar" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="GeldigVanaf" type="text_en" multiValued="true" stored="true" indexed="true"/>        
-    <field name="GeldigTot" type="text_en" multiValued="true" stored="true" indexed="true"/>    
-    <field name="Versie" type="text_en" multiValued="true" stored="true" indexed="true"/>        
-    <field name="frequencyOfUse" type="text_en" multiValued="true" stored="true" indexed="true"/>        
-
+    <field name="NaamInDscCatalogus" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="UniekeNaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="Eigenaar" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="GeldigVanaf" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="GeldigTot" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="Versie" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="statlineTabel" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="CBSAccess" type="text_en" multiValued="true" stored="true" indexed="true"/>
     <!-- SCHEMA-FIELDS::END -->
 
     <copyField source="description" dest="_text_" maxChars="3000"/>
@@ -551,9 +558,9 @@
     <!-- Create a string version of author for faceting -->
     <!-- <copyField source="author" dest="author_s"/> -->
 
-    <!-- Above, multiple source fields are copied to the [text] field. 
-        Another way to map multiple source fields to the same 
-        destination field is to use the dynamic field syntax. 
+    <!-- Above, multiple source fields are copied to the [text] field.
+        Another way to map multiple source fields to the same
+        destination field is to use the dynamic field syntax.
         copyField also supports a maxChars to copy setting.  -->
 
     <!-- <copyField source="*_t" dest="_text_" maxChars="3000"/> -->
@@ -563,19 +570,19 @@
     <!-- <copyField source="*_s" dest="_text_" maxChars="3000"/> -->
     <!-- <copyField source="*_ss" dest="_text_" maxChars="3000"/> -->
     <!-- <copyField source="*_i" dest="_text_" maxChars="3000"/> -->
-    
+
     <!--
         METADATA SCHEMA FIELDS
         Now following: copyFields to copy the contents of the metadata fields above to a
         catch-all textfield necessary for searching in Dataverse.
-        
+
         Note: You can retrieve a list of the following fields from a specific API endpoint of your Dataverse
               installation, available at "http://<your Dataverse host>/api/admin/index/solr/schema".
               See also https://guides.dataverse.org/en/latest/admin/metadatacustomization.html#updating-the-solr-schema
-              
+
         Note: Please see https://guides.dataverse.org/en/latest/admin/metadatacustomization.html for advice on
               how to create your own metadata schemas.
-        
+
         WARNING: Do not remove the following include guards if you intend to use the neat helper scripts we provide.
     -->
     <!-- SCHEMA-COPY-FIELDS::BEGIN -->
@@ -736,11 +743,10 @@
     <copyField source="topicClassification" dest="_text_" maxChars="3000"/>
     <copyField source="unitOfAnalysis" dest="_text_" maxChars="3000"/>
     <copyField source="universe" dest="_text_" maxChars="3000"/>
-    <copyField source="variable" dest="_text_" maxChars="3000"/>
     <copyField source="weighting" dest="_text_" maxChars="3000"/>
     <copyField source="westLongitude" dest="_text_" maxChars="3000"/>
     <!-- SCHEMA-COPY-FIELDS::END -->
-    
+
     <!-- This can be enabled, in case the client does not know what fields may be searched. It isn't enabled by default
          because it's very expensive to index everything twice. -->
     <!--<copyField source="*" dest="_text_"/>-->
@@ -749,7 +755,7 @@
        for fields via the specification of patterns to match field names.
        EXAMPLE:  name="*_i" will match any field ending in _i (like myid_i, z_i)
        RESTRICTION: the glob-like pattern in the name attribute must have a "*" only at the start or the end.  -->
-   
+
     <dynamicField name="*_i"  type="pint"    indexed="true"  stored="true"/>
     <dynamicField name="*_is" type="pints"    indexed="true"  stored="true"/>
     <dynamicField name="*_s"  type="string"  indexed="true"  stored="true" />
@@ -771,7 +777,7 @@
     <dynamicField name="*_dts" type="pdate"    indexed="true"  stored="true" multiValued="true"/>
     <dynamicField name="*_p"  type="location" indexed="true" stored="true"/>
     <dynamicField name="*_srpt"  type="location_rpt" indexed="true" stored="true"/>
-    
+
     <!-- payloaded dynamic fields -->
     <dynamicField name="*_dpf" type="delimited_payloads_float" indexed="true"  stored="true"/>
     <dynamicField name="*_dpi" type="delimited_payloads_int" indexed="true"  stored="true"/>
@@ -826,7 +832,7 @@
 
 <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
         is a more restricted form of the canonical representation of dateTime
-        http://www.w3.org/TR/xmlschema-2/#dateTime    
+        http://www.w3.org/TR/xmlschema-2/#dateTime
         The trailing "Z" designates UTC time and is mandatory.
         Optional fractional seconds are allowed: 1995-12-31T23:59:59.999Z
         All other components are mandatory.
@@ -841,7 +847,7 @@
             NOW/DAY+6MONTHS+3DAYS
                 ... 6 months and 3 days in the future from the start of
                     the current day
-                    
+
         Consult the DateField javadocs for more information.
 
         Note: For faster range queries, consider the tdate type
@@ -869,7 +875,7 @@
         <filter class="solr.TrimFilterFactory" />
         <!-- The PatternReplaceFilter gives you the flexibility to use
                 Java Regular expression to replace any sequence of characters
-                matching a pattern with an arbitrary replacement string, 
+                matching a pattern with an arbitrary replacement string,
                 which may include back references to portions of the original
                 string matched by the pattern.
 
@@ -882,8 +888,8 @@
         <!-- https://redmine.hmdc.harvard.edu/issues/3482#note-11 -->
         <!-- <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replacement="" replace="all" /> -->
         </analyzer>
-    </fieldType>   
-    
+    </fieldType>
+
     <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
     <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
@@ -900,7 +906,7 @@
     <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
     <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
     <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
-    
+
     <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
     <fieldType name="pfloats" class="solr.FloatPointField" docValues="true" multiValued="true"/>
     <fieldType name="plongs" class="solr.LongPointField" docValues="true" multiValued="true"/>
@@ -908,7 +914,7 @@
 
     <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
          is a more restricted form of the canonical representation of dateTime
-         http://www.w3.org/TR/xmlschema-2/#dateTime    
+         http://www.w3.org/TR/xmlschema-2/#dateTime
          The trailing "Z" designates UTC time and is mandatory.
          Optional fractional seconds are allowed: 1995-12-31T23:59:59.999Z
          All other components are mandatory.
@@ -923,12 +929,12 @@
                NOW/DAY+6MONTHS+3DAYS
                   ... 6 months and 3 days in the future from the start of
                       the current day
-                      
+
       -->
     <!-- KD-tree versions of date fields -->
     <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
     <fieldType name="pdates" class="solr.DatePointField" docValues="true" multiValued="true"/>
-    
+
     <!--Binary data type. The data should be sent/retrieved in as Base64 encoded Strings -->
     <fieldType name="binary" class="solr.BinaryField"/>
 
@@ -1001,13 +1007,13 @@
                     ignoreCase="true"
                     words="lang/stopwords_en.txt"
                 />
-            
+
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.EnglishPossessiveFilterFactory"/>
             <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-            
-            <!-- Solved highlighting breaking after upgrade #4836. Applied to query analyzer below too: 
-                https://stackoverflow.com/questions/26287321/solr-stemming-breaks-highlighting 
+
+            <!-- Solved highlighting breaking after upgrade #4836. Applied to query analyzer below too:
+                https://stackoverflow.com/questions/26287321/solr-stemming-breaks-highlighting
                 Solution was to ensure original word is kept by stemmer -MAD 4.9.2 -->
             <filter class="solr.KeywordRepeatFilterFactory" />
             <filter class="solr.PorterStemFilterFactory"/>
@@ -1016,16 +1022,16 @@
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            
-            <!-- MAD 4.9.2: Solr recommends doing synonym expansion at index not query, why do we do it here tho? 
-                    https://stackoverflow.com/questions/10185079/ 
+
+            <!-- MAD 4.9.2: Solr recommends doing synonym expansion at index not query, why do we do it here tho?
+                    https://stackoverflow.com/questions/10185079/
                     To me it looks like we we copied something that works-->
             <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
             <filter class="solr.StopFilterFactory"
                     ignoreCase="true"
                     words="lang/stopwords_en.txt"
                 />
-            
+
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.EnglishPossessiveFilterFactory"/>
             <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
@@ -1147,7 +1153,7 @@
       </analyzer>
     </fieldType>
 
-    <!-- 
+    <!--
       Example of using PathHierarchyTokenizerFactory at index time, so
       queries for paths match documents at that path, or in descendent paths
     -->
@@ -1177,7 +1183,7 @@
 
     <!-- This point type indexes the coordinates as separate fields (subFields)
       If subFieldType is defined, it references a type, and a dynamic field
-      definition is created matching *___<typename>.  Alternately, if 
+      definition is created matching *___<typename>.  Alternately, if
       subFieldSuffix is defined, that is used to create the subFields.
       Example: if subFieldType="double", then the coordinates would be
         indexed in fields myloc_0___double,myloc_1___double.
@@ -1198,7 +1204,9 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
                geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
-
+    <!-- Dataverse - per GeoBlacklight, adding field type for bboxField that enables, among other things, overlap ratio calculations -->
+    <fieldType name="bbox" class="solr.BBoxField"
+           geo="true" distanceUnits="kilometers" numberType="pdouble" />
     <!-- Payloaded field types -->
     <fieldType name="delimited_payloads_float" stored="false" indexed="true" class="solr.TextField">
       <analyzer>
