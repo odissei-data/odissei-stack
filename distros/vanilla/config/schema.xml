@@ -163,7 +163,6 @@
     <field name="dvCategory" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="categoryOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="identifierOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
-    <field name="dansElsstClassification" type="string" stored="true" indexed="true" multiValued="true"/>
 
     <field name="publicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="dsPublicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
@@ -240,6 +239,7 @@
     <field name="dansWeighting" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansResponseRate" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
+    <field name="dansElsstClassification" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="dansMetadataLanguage" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="questionSchemeName" type="text_en" stored="true" indexed="true" multiValued="true"/>
     <field name="questionSchemeDescription" type="text_en" stored="true" indexed="true" multiValued="true"/>
