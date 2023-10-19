@@ -146,6 +146,14 @@
     <field name="metadataSource" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="isHarvested" type="boolean" stored="true" indexed="true" multiValued="false"/>
     <field name="fileDeleted" type="boolean" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansDataversePid" type="text_en" stored="true" indexed="true" multiValued="false"/>
+
+    <field name="dansDataversePidVersion" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansBagId" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansNbn" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansOtherId" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansOtherIdVersion" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansSwordToken" type="text_en" stored="true" indexed="true" multiValued="false"/>
 
     <field name="dvName" type="text_en" stored="true" indexed="true" multiValued="false"/>
     <field name="dvAlias" type="text_en" stored="true" indexed="true" multiValued="false"/>
@@ -155,14 +163,17 @@
     <field name="dvCategory" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="categoryOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="identifierOfDataverse" type="string" stored="true" indexed="true" multiValued="false"/>
-    
+
     <field name="publicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="dsPublicationDate" type="string" stored="true" indexed="true" multiValued="false"/>
 
     <field name="dvSubject" type="string" stored="true" indexed="true" multiValued="true"/>
 
     <field name="publicationStatus" type="string" stored="true" indexed="true" multiValued="true"/>
-
+    <field name="externalStatus" type="string" stored="true" indexed="true" multiValued="false"/>
+    <field name="embargoEndDate" type="long" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansRightsHolder" type="string" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansPersonalDataPresent" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="subtreePaths" type="string" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileName" type="text_en" stored="true" indexed="true" multiValued="true"/>
@@ -178,6 +189,63 @@
     <field name="variableNotes" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileDescription" type="text_en" stored="true" indexed="true" multiValued="false"/>
+    <field name="dansTemporalCoverage" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansTemporalCoverageText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialCoverageText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPoint" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointX" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointY" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialPointScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBox" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxNorth" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxEast" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxSouth" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxWest" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialBoxScheme" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSpatialCoverageControlled" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansRelationMetadata" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansAudience" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansCollection" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelation" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansRelationURI" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dccd-projectType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-category" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-principalInvestigator" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-objectType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-elementType" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-taxon" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dccd-location" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-latitude" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-longitude" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-period" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-periodStart" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dcdd-periodEnd" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansCessdaClassification" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansUnitOfAnalysis" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansUniverse" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansTimeMethod" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansFrequencyOfDataCollection" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSamplingProcedureCV" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansSamplingProcedureFreeText" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansCollectionMode" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansResearchInstrument" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansDataCollectionSituation" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansActionsToMinimizeLoss" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansWeighting" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansResponseRate" type="text_en" stored="true" indexed="true" multiValued="true"/>
+
+    <field name="dansElsstClassification" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="dansMetadataLanguage" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionSchemeName" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionSchemeDescription" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionId" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionName" type="text_en" stored="true" indexed="true" multiValued="true"/>
+    <field name="questionText" type="text_en" stored="true" indexed="true" multiValued="true"/>
 
     <field name="fileTypeGroupFacet" type="string" stored="true" indexed="true" multiValued="false"/>
     <field name="fileTypeDisplay" type="string" stored="true" indexed="true" multiValued="false"/>
@@ -226,9 +294,222 @@
 
     <field name="dsPersistentId" type="text_en" multiValued="false" stored="true" indexed="true"/>
     <field name="filePersistentId" type="text_en" multiValued="false" stored="true" indexed="true"/>
-    
-    <!-- Dynamic Dataverse fields from http://localhost:8080/api/admin/index/solr/schema -->
-    <xi:include href="schema_dv_mdb_fields.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />
+    <!-- Dataverse geospatial search -->
+    <!-- https://solr.apache.org/guide/8_11/spatial-search.html#rpt -->
+    <field name="geolocation" type="location_rpt" multiValued="true" stored="true" indexed="true"/>
+    <!-- https://solr.apache.org/guide/8_11/spatial-search.html#bboxfield -->
+    <field name="boundingBox" type="bbox" multiValued="true" stored="true" indexed="true"/>
+    <!--
+        METADATA SCHEMA FIELDS
+        Now following: any fields generated from the metadata schemas loaded into Dataverse.
+
+        Note: You can retrieve a list of the following fields from a specific API endpoint of your Dataverse
+              installation, available at "http://<your Dataverse host>/api/admin/index/solr/schema".
+              See also https://guides.dataverse.org/en/latest/admin/metadatacustomization.html#updating-the-solr-schema
+
+        Note: Please see https://guides.dataverse.org/en/latest/admin/metadatacustomization.html for advice on
+              how to create your own metadata schemas.
+
+        WARNING: Do not remove the following include guards if you intend to use the neat helper scripts we provide.
+    -->
+    <!-- SCHEMA-FIELDS::BEGIN -->
+    <field name="accessToSources" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="actionsToMinimizeLoss" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="alternativeTitle" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="alternativeURL" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="astroFacility" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="astroInstrument" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="astroObject" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="astroType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="author" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="authorAffiliation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="authorIdentifier" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="authorIdentifierScheme" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="authorName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="characteristicOfSources" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="city" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="cleaningOperations" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="collectionMode" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="collectorTraining" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="contributor" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="contributorName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="contributorType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="controlOperations" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="country" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Depth" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="coverage.ObjectCount" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="coverage.ObjectDensity" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="coverage.Polarization" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="coverage.Redshift.MaximumValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Redshift.MinimumValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.RedshiftValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.SkyFraction" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="coverage.Spatial" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Spectral.Bandpass" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Spectral.CentralWavelength" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Spectral.MaximumWavelength" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Spectral.MinimumWavelength" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Spectral.Wavelength" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Temporal" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Temporal.StartTime" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="coverage.Temporal.StopTime" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dataCollectionSituation" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="dataCollector" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="dataSources" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="datasetContact" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="datasetContactAffiliation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="datasetContactEmail" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="datasetContactName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="datasetLevelErrorNotes" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="dateOfCollection" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dateOfCollectionEnd" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dateOfCollectionStart" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dateOfDeposit" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="depositor" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="deviationsFromSampleDesign" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="distributionDate" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="distributor" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="distributorAbbreviation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="distributorAffiliation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="distributorLogoURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="distributorName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="distributorURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dsDescription" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dsDescriptionDate" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="dsDescriptionValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="eastLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="frequencyOfDataCollection" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="geographicBoundingBox" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="geographicCoverage" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="geographicUnit" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="grantNumber" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="grantNumberAgency" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="grantNumberValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="journalArticleType" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="journalIssue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="journalPubDate" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="journalVolume" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="journalVolumeIssue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="keyword" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="keywordValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="keywordVocabulary" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="keywordVocabularyURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="kindOfData" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="language" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="northLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="notesText" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="originOfSources" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="otherDataAppraisal" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="otherGeographicCoverage" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="otherId" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="otherIdAgency" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="otherIdValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="otherReferences" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producer" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producerAbbreviation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producerAffiliation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producerLogoURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producerName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="producerURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="productionDate" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="productionPlace" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="publication" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="publicationCitation" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="publicationIDNumber" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="publicationIDType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="publicationURL" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="redshiftType" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="relatedDatasets" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="relatedMaterial" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="researchInstrument" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="resolution.Redshift" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="resolution.Spatial" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="resolution.Spectral" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="resolution.Temporal" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="responseRate" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="samplingErrorEstimates" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="samplingProcedure" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="series" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="seriesInformation" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="seriesName" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="socialScienceNotes" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="socialScienceNotesSubject" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="socialScienceNotesText" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="socialScienceNotesType" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="software" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="softwareName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="softwareVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="southLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="state" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayCellType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayMeasurementType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayOrganism" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayOtherMeasurmentType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayOtherOrganism" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayOtherPlatform" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayOtherTechnologyType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayPlatform" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyAssayTechnologyType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyDesignType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyFactorType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyOtherDesignType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="studyOtherFactorType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="subject" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="subtitle" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="targetSampleActualSize" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="targetSampleSize" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="targetSampleSizeFormula" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="timeMethod" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="timePeriodCovered" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="timePeriodCoveredEnd" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="timePeriodCoveredStart" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="title" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="topicClassValue" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="topicClassVocab" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="topicClassVocabURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="topicClassification" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="unitOfAnalysis" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="universe" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="weighting" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="westLongitude" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="workflowURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableVocabularyURI" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableTrefwoord" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="matchedTerm" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel1" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel2" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarLabel3" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri2" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri1" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="elsstVarUri3" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="frequencyOfUse" type="text_en" multiValued="false" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableDefinition" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableID" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableObjecttype" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableValidFrom" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableVersion" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableVersionResponsibility" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableGroeppad" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableThema" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiConceptVariableWaardestelselnaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableId" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableLabel" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableProcessingInstruction" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableDataType" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="odisseiVariableVolgnummer" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="providerName" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="NaamInDscCatalogus" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="UniekeNaam" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="Eigenaar" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="GeldigVanaf" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="GeldigTot" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="Versie" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="statlineTabel" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <field name="CBSAccess" type="text_en" multiValued="true" stored="true" indexed="true"/>
+    <!-- SCHEMA-FIELDS::END -->
 
     <copyField source="description" dest="_text_" maxChars="3000"/>
 
@@ -277,9 +558,9 @@
     <!-- Create a string version of author for faceting -->
     <!-- <copyField source="author" dest="author_s"/> -->
 
-    <!-- Above, multiple source fields are copied to the [text] field. 
-        Another way to map multiple source fields to the same 
-        destination field is to use the dynamic field syntax. 
+    <!-- Above, multiple source fields are copied to the [text] field.
+        Another way to map multiple source fields to the same
+        destination field is to use the dynamic field syntax.
         copyField also supports a maxChars to copy setting.  -->
 
     <!-- <copyField source="*_t" dest="_text_" maxChars="3000"/> -->
@@ -290,7 +571,21 @@
     <!-- <copyField source="*_ss" dest="_text_" maxChars="3000"/> -->
     <!-- <copyField source="*_i" dest="_text_" maxChars="3000"/> -->
 
-    <!-- Dataverse copyField from http://localhost:8080/api/admin/index/solr/schema -->
+    <!--
+        METADATA SCHEMA FIELDS
+        Now following: copyFields to copy the contents of the metadata fields above to a
+        catch-all textfield necessary for searching in Dataverse.
+
+        Note: You can retrieve a list of the following fields from a specific API endpoint of your Dataverse
+              installation, available at "http://<your Dataverse host>/api/admin/index/solr/schema".
+              See also https://guides.dataverse.org/en/latest/admin/metadatacustomization.html#updating-the-solr-schema
+
+        Note: Please see https://guides.dataverse.org/en/latest/admin/metadatacustomization.html for advice on
+              how to create your own metadata schemas.
+
+        WARNING: Do not remove the following include guards if you intend to use the neat helper scripts we provide.
+    -->
+    <!-- SCHEMA-COPY-FIELDS::BEGIN -->
     <copyField source="accessToSources" dest="_text_" maxChars="3000"/>
     <copyField source="actionsToMinimizeLoss" dest="_text_" maxChars="3000"/>
     <copyField source="alternativeTitle" dest="_text_" maxChars="3000"/>
@@ -424,13 +719,13 @@
     <copyField source="studyAssayOrganism" dest="_text_" maxChars="3000"/>
     <copyField source="studyAssayOtherMeasurmentType" dest="_text_" maxChars="3000"/>
     <copyField source="studyAssayOtherOrganism" dest="_text_" maxChars="3000"/>
-    <copyField source="studyAssayPlatform" dest="_text_" maxChars="3000"/>
     <copyField source="studyAssayOtherPlatform" dest="_text_" maxChars="3000"/>
-    <copyField source="studyAssayTechnologyType" dest="_text_" maxChars="3000"/>
     <copyField source="studyAssayOtherTechnologyType" dest="_text_" maxChars="3000"/>
+    <copyField source="studyAssayPlatform" dest="_text_" maxChars="3000"/>
+    <copyField source="studyAssayTechnologyType" dest="_text_" maxChars="3000"/>
     <copyField source="studyDesignType" dest="_text_" maxChars="3000"/>
-    <copyField source="studyOtherDesignType" dest="_text_" maxChars="3000"/>
     <copyField source="studyFactorType" dest="_text_" maxChars="3000"/>
+    <copyField source="studyOtherDesignType" dest="_text_" maxChars="3000"/>
     <copyField source="studyOtherFactorType" dest="_text_" maxChars="3000"/>
     <copyField source="subject" dest="_text_" maxChars="3000"/>
     <copyField source="subtitle" dest="_text_" maxChars="3000"/>
@@ -450,8 +745,8 @@
     <copyField source="universe" dest="_text_" maxChars="3000"/>
     <copyField source="weighting" dest="_text_" maxChars="3000"/>
     <copyField source="westLongitude" dest="_text_" maxChars="3000"/>
-    <!-- End: Dataverse-specific -->
-    
+    <!-- SCHEMA-COPY-FIELDS::END -->
+
     <!-- This can be enabled, in case the client does not know what fields may be searched. It isn't enabled by default
          because it's very expensive to index everything twice. -->
     <!--<copyField source="*" dest="_text_"/>-->
@@ -460,7 +755,7 @@
        for fields via the specification of patterns to match field names.
        EXAMPLE:  name="*_i" will match any field ending in _i (like myid_i, z_i)
        RESTRICTION: the glob-like pattern in the name attribute must have a "*" only at the start or the end.  -->
-   
+
     <dynamicField name="*_i"  type="pint"    indexed="true"  stored="true"/>
     <dynamicField name="*_is" type="pints"    indexed="true"  stored="true"/>
     <dynamicField name="*_s"  type="string"  indexed="true"  stored="true" />
@@ -482,7 +777,7 @@
     <dynamicField name="*_dts" type="pdate"    indexed="true"  stored="true" multiValued="true"/>
     <dynamicField name="*_p"  type="location" indexed="true" stored="true"/>
     <dynamicField name="*_srpt"  type="location_rpt" indexed="true" stored="true"/>
-    
+
     <!-- payloaded dynamic fields -->
     <dynamicField name="*_dpf" type="delimited_payloads_float" indexed="true"  stored="true"/>
     <dynamicField name="*_dpi" type="delimited_payloads_int" indexed="true"  stored="true"/>
@@ -537,7 +832,7 @@
 
 <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
         is a more restricted form of the canonical representation of dateTime
-        http://www.w3.org/TR/xmlschema-2/#dateTime    
+        http://www.w3.org/TR/xmlschema-2/#dateTime
         The trailing "Z" designates UTC time and is mandatory.
         Optional fractional seconds are allowed: 1995-12-31T23:59:59.999Z
         All other components are mandatory.
@@ -552,7 +847,7 @@
             NOW/DAY+6MONTHS+3DAYS
                 ... 6 months and 3 days in the future from the start of
                     the current day
-                    
+
         Consult the DateField javadocs for more information.
 
         Note: For faster range queries, consider the tdate type
@@ -580,7 +875,7 @@
         <filter class="solr.TrimFilterFactory" />
         <!-- The PatternReplaceFilter gives you the flexibility to use
                 Java Regular expression to replace any sequence of characters
-                matching a pattern with an arbitrary replacement string, 
+                matching a pattern with an arbitrary replacement string,
                 which may include back references to portions of the original
                 string matched by the pattern.
 
@@ -593,8 +888,8 @@
         <!-- https://redmine.hmdc.harvard.edu/issues/3482#note-11 -->
         <!-- <filter class="solr.PatternReplaceFilterFactory" pattern="([^a-z])" replacement="" replace="all" /> -->
         </analyzer>
-    </fieldType>   
-    
+    </fieldType>
+
     <!-- The StrField type is not analyzed, but indexed/stored verbatim. -->
     <fieldType name="string" class="solr.StrField" sortMissingLast="true" docValues="true" />
     <fieldType name="strings" class="solr.StrField" sortMissingLast="true" multiValued="true" docValues="true" />
@@ -611,7 +906,7 @@
     <fieldType name="pfloat" class="solr.FloatPointField" docValues="true"/>
     <fieldType name="plong" class="solr.LongPointField" docValues="true"/>
     <fieldType name="pdouble" class="solr.DoublePointField" docValues="true"/>
-    
+
     <fieldType name="pints" class="solr.IntPointField" docValues="true" multiValued="true"/>
     <fieldType name="pfloats" class="solr.FloatPointField" docValues="true" multiValued="true"/>
     <fieldType name="plongs" class="solr.LongPointField" docValues="true" multiValued="true"/>
@@ -619,7 +914,7 @@
 
     <!-- The format for this date field is of the form 1995-12-31T23:59:59Z, and
          is a more restricted form of the canonical representation of dateTime
-         http://www.w3.org/TR/xmlschema-2/#dateTime    
+         http://www.w3.org/TR/xmlschema-2/#dateTime
          The trailing "Z" designates UTC time and is mandatory.
          Optional fractional seconds are allowed: 1995-12-31T23:59:59.999Z
          All other components are mandatory.
@@ -634,12 +929,12 @@
                NOW/DAY+6MONTHS+3DAYS
                   ... 6 months and 3 days in the future from the start of
                       the current day
-                      
+
       -->
     <!-- KD-tree versions of date fields -->
     <fieldType name="pdate" class="solr.DatePointField" docValues="true"/>
     <fieldType name="pdates" class="solr.DatePointField" docValues="true" multiValued="true"/>
-    
+
     <!--Binary data type. The data should be sent/retrieved in as Base64 encoded Strings -->
     <fieldType name="binary" class="solr.BinaryField"/>
 
@@ -712,13 +1007,13 @@
                     ignoreCase="true"
                     words="lang/stopwords_en.txt"
                 />
-            
+
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.EnglishPossessiveFilterFactory"/>
             <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
-            
-            <!-- Solved highlighting breaking after upgrade #4836. Applied to query analyzer below too: 
-                https://stackoverflow.com/questions/26287321/solr-stemming-breaks-highlighting 
+
+            <!-- Solved highlighting breaking after upgrade #4836. Applied to query analyzer below too:
+                https://stackoverflow.com/questions/26287321/solr-stemming-breaks-highlighting
                 Solution was to ensure original word is kept by stemmer -MAD 4.9.2 -->
             <filter class="solr.KeywordRepeatFilterFactory" />
             <filter class="solr.PorterStemFilterFactory"/>
@@ -727,16 +1022,16 @@
         </analyzer>
         <analyzer type="query">
             <tokenizer class="solr.StandardTokenizerFactory"/>
-            
-            <!-- MAD 4.9.2: Solr recommends doing synonym expansion at index not query, why do we do it here tho? 
-                    https://stackoverflow.com/questions/10185079/ 
+
+            <!-- MAD 4.9.2: Solr recommends doing synonym expansion at index not query, why do we do it here tho?
+                    https://stackoverflow.com/questions/10185079/
                     To me it looks like we we copied something that works-->
             <filter class="solr.SynonymGraphFilterFactory" synonyms="synonyms.txt" ignoreCase="true" expand="true"/>
             <filter class="solr.StopFilterFactory"
                     ignoreCase="true"
                     words="lang/stopwords_en.txt"
                 />
-            
+
             <filter class="solr.LowerCaseFilterFactory"/>
             <filter class="solr.EnglishPossessiveFilterFactory"/>
             <filter class="solr.KeywordMarkerFilterFactory" protected="protwords.txt"/>
@@ -858,7 +1153,7 @@
       </analyzer>
     </fieldType>
 
-    <!-- 
+    <!--
       Example of using PathHierarchyTokenizerFactory at index time, so
       queries for paths match documents at that path, or in descendent paths
     -->
@@ -888,7 +1183,7 @@
 
     <!-- This point type indexes the coordinates as separate fields (subFields)
       If subFieldType is defined, it references a type, and a dynamic field
-      definition is created matching *___<typename>.  Alternately, if 
+      definition is created matching *___<typename>.  Alternately, if
       subFieldSuffix is defined, that is used to create the subFields.
       Example: if subFieldType="double", then the coordinates would be
         indexed in fields myloc_0___double,myloc_1___double.
@@ -909,7 +1204,9 @@
     -->
     <fieldType name="location_rpt" class="solr.SpatialRecursivePrefixTreeFieldType"
                geo="true" distErrPct="0.025" maxDistErr="0.001" distanceUnits="kilometers" />
-
+    <!-- Dataverse - per GeoBlacklight, adding field type for bboxField that enables, among other things, overlap ratio calculations -->
+    <fieldType name="bbox" class="solr.BBoxField"
+           geo="true" distanceUnits="kilometers" numberType="pdouble" />
     <!-- Payloaded field types -->
     <fieldType name="delimited_payloads_float" stored="false" indexed="true" class="solr.TextField">
       <analyzer>
